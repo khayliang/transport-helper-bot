@@ -62,7 +62,7 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
     if (process) {
       msg = process(msg);
     }
-    if (verify(msg)) {
+    if (verify(msg, ctx)) {
       await ctx.reply(success(ctx, msg));
       ctx.session.step += 1;
       ctx.session.data[stepKey] = msg;
@@ -76,7 +76,7 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
     }
     try {
       const msgNumber = _.toNumber(msg);
-      if (verify(msgNumber)) {
+      if (verify(msgNumber, ctx)) {
         await ctx.reply(success(ctx, msgNumber));
         ctx.session.step += 1;
         ctx.session.data[stepKey] = msgNumber;
@@ -96,7 +96,7 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
     if (process) {
       msg = process(msg);
     }
-    if (verify(msg)) {
+    if (verify(msg, ctx)) {
       await ctx.reply(success(ctx, msg));
       ctx.session.step += 1;
       ctx.session.data[stepKey] = msg;

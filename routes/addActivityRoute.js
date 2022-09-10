@@ -116,10 +116,14 @@ const addActivityForm = {
   },
   final_mileage: {
     type: "number",
-    verify: (data) => true,
+    verify: (data, ctx) => {
+      const initialMileage = ctx.session.data.initial_mileage;
+      return data >= initialMileage;
+    },
     prompt: (ctx, data) => `What's the final mileage of the activity?`,
     success: (ctx, data) => `Final mileage was ${data}.`,
-    error: (ctx, data) => `Please enter a valid mileage`,
+    error: (ctx, data) =>
+      `Please enter a valid final mileage. Your final mileage might be less than your initial.`,
   },
 
   onFinish: async (ctx, responses) => {
