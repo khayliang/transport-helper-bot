@@ -1,7 +1,7 @@
 # transport-helper-bot
 ![tracy-the-transport-triangle](./assets/tracy.jpg)
 
-Tracy the Transport Triangle is a Telegram bot built to assist administrative tasks in the Singapore Armed Forces (SAF) Transport formation.
+Tracy the Transport Triangle (TTT) is a Telegram bot built to assist administrative tasks in the Singapore Armed Forces (SAF) Transport formation.
 
 You can try out the development version of the bot [here](https://t.me/TracyTheTriangleDevBot). 
 
