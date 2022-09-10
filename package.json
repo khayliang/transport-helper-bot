@@ -1,0 +1,25 @@
+{
+  "name": "transport-helper-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for Transport Hub East",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json,yml}'",
+    "start": "node index.js"
+  },
+  "author": "khayliang",
+  "license": "ISC",
+  "dependencies": {
+    "@grammyjs/conversations": "^1.0.2",
+    "@grammyjs/router": "^2.0.0",
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.2",
+    "grammy": "^1.11.0",
+    "moment": "^2.29.4",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  }
+}
