@@ -113,7 +113,7 @@ const addVehicleForm = {
   },
   last_topup_mileage: {
     type: "number",
-    verify: (data) => true,
+    verify: (data, ctx) => data <= ctx.session.data.current_mileage,
     prompt: (ctx, data) => `What was the mileage of its last topup?`,
     success: (ctx, data) =>
       `${data}. It's been some time since your last topup.`,

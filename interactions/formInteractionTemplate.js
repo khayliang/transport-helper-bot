@@ -62,21 +62,26 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
     if (process) {
       msg = process(msg);
     }
-    if (verify(msg, ctx)) {
-      await ctx.reply(success(ctx, msg));
-      ctx.session.step += 1;
-      ctx.session.data[stepKey] = msg;
-    } else {
-      await ctx.reply(error(ctx, msg));
+    try {
+      if (verify(msg, ctx)) {
+        await ctx.reply(success(ctx, msg));
+        ctx.session.step += 1;
+        ctx.session.data[stepKey] = msg;
+      } else {
+        ctx.reply(error(ctx, msg));
+      }
+    } catch (err) {
+      await ctx.reply(`${error(ctx, msg)}, ${err.message}`);
     }
   } else if (type === "number") {
     let msg = ctx.message.text;
-    if (process) {
-      msg = process(msg);
-    }
+
     try {
+      if (process) {
+        msg = process(msg);
+      }
       const msgNumber = _.toNumber(msg);
-      if (!msgNumber) throw Error("Give me a number!")
+      if (!msgNumber) throw Error("Give me a number!");
 
       if (verify(msgNumber, ctx)) {
         await ctx.reply(success(ctx, msgNumber));
@@ -90,20 +95,24 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
     }
   } else if (type === "buttons") {
     let msg = "";
-    if (!ctx.callbackQuery) {
-      msg = ctx.message.text;
-    } else {
-      msg = ctx.callbackQuery.data;
-    }
-    if (process) {
-      msg = process(msg);
-    }
-    if (verify(msg, ctx)) {
-      await ctx.reply(success(ctx, msg));
-      ctx.session.step += 1;
-      ctx.session.data[stepKey] = msg;
-    } else {
-      await ctx.reply(error(ctx, msg));
+    try {
+      if (!ctx.callbackQuery) {
+        msg = ctx.message.text;
+      } else {
+        msg = ctx.callbackQuery.data;
+      }
+      if (process) {
+        msg = process(msg);
+      }
+      if (verify(msg, ctx)) {
+        await ctx.reply(success(ctx, msg));
+        ctx.session.step += 1;
+        ctx.session.data[stepKey] = msg;
+      } else {
+        await ctx.reply(error(ctx, msg));
+      }
+    } catch (err) {
+      await ctx.reply(`${error(ctx, msg)}, err.message`);
     }
   } else {
     console.log("Unknown type");
