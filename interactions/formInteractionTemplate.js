@@ -75,8 +75,9 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
       msg = process(msg);
     }
     try {
-      if (!_.isNumber(msg)) throw Error("Give me a number!")
       const msgNumber = _.toNumber(msg);
+      if (!msgNumber) throw Error("Give me a number!")
+
       if (verify(msgNumber, ctx)) {
         await ctx.reply(success(ctx, msgNumber));
         ctx.session.step += 1;
