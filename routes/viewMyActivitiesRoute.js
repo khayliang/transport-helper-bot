@@ -41,11 +41,15 @@ const viewMyActivitiesForm = {
     prompt: (ctx, data) => `What month do you want to view?`,
     success: (ctx, data) => `You want to view ${monthsEnum[data]}`,
     error: (ctx, data) =>
-      `What is ${data}? I never heard of that month before... Please select a valid role`,
+      `What is ${data}? I never heard of that month before... Please select a valid month`,
   },
   year: {
     type: "number",
-    verify: (data) => /\d{4}/.test(data),
+    verify: (data) => {
+      if (!/\d{4}/.test(data)) return false;
+      if (data > new Date().getFullYear()) return false;
+      return true;
+    },
     prompt: (ctx, data) => `What year do you want to view?`,
     success: (ctx, data) => `You want to view the year of ${data}`,
     error: (ctx, data) =>

@@ -9,6 +9,7 @@ const {
 } = require("../interactions/formInteractionTemplate");
 const moment = require("moment");
 const { createNewVehicle } = require("../api/createNewVehicle");
+const { isValidDate } = require("../utils/isValidDate");
 
 const steps = [
   {
@@ -122,6 +123,7 @@ const addVehicleForm = {
   last_activity_timestamp: {
     type: "number",
     process: (data) => {
+      if (!isValidDate(data)) throw Error("Invalid date format");
       const lastActivity = moment(data, "DD/MM/YYYY").toDate();
 
       if (lastActivity.getTime() > Date.now())

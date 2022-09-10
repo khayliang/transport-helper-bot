@@ -112,7 +112,7 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
         await ctx.reply(error(ctx, msg));
       }
     } catch (err) {
-      await ctx.reply(`${error(ctx, msg)}, err.message`);
+      await ctx.reply(`${error(ctx, msg)}, ${err.message}`);
     }
   } else {
     console.log("Unknown type");

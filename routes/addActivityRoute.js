@@ -8,6 +8,7 @@ const {
 const moment = require("moment");
 const { activitiesEnum } = require("../enums/activitiesEnum");
 const { createNewActivity } = require("../api/createNewActivity");
+const { isValidDate } = require("../utils/isValidDate");
 
 const steps = [
   {
@@ -91,8 +92,8 @@ const addActivityForm = {
       return timeButton;
     },
     process: (data) => {
+      if (!isValidDate(data)) throw Error("Invalid date format");
       const lastActivity = moment(data, "DD/MM/YYYY").toDate();
-
       if (lastActivity.getTime() > Date.now())
         throw Error("date is in the future");
       return lastActivity.getTime();
