@@ -2,9 +2,9 @@ const { InlineKeyboard } = require("grammy");
 const _ = require("lodash");
 const { endInteraction } = require("./endInteraction");
 
-const sendPrompt = async (ctx, formData, steps) => {
-  const stepToPrompt = steps[ctx.session.step].key;
-  const { type: typeOfPrompt, buttons, prompt } = formData[stepToPrompt];
+const sendPrompt = async (ctx, formData) => {
+  const { entries } = formData;
+  const { type: typeOfPrompt, buttons, prompt } = entries[ctx.session.step];
   if (typeOfPrompt === "buttons") {
     await ctx.reply(prompt(), { reply_markup: buttons() });
   } else {
@@ -12,17 +12,17 @@ const sendPrompt = async (ctx, formData, steps) => {
   }
 };
 
-module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
+module.exports.formInteractionTemplate = async (ctx, formData) => {
+  const { entries } = formData;
   // run this if the form hasn't been initialized
   if (ctx.session.step === "idle") {
     ctx.session.step = 0;
-    const { type, prompt, buttons } = formData[steps[0].key];
     const { onStart } = formData;
     if (onStart) await onStart(ctx);
-    await sendPrompt(ctx, formData, steps);
+    await sendPrompt(ctx, formData);
     return;
   }
-  // run this to process response for the verification stage
+  // run this to process response if it is on the verification step
   else if (ctx.session.step === "verify") {
     let msg = ctx.callbackQuery.data;
     if (msg === "submit") {
@@ -36,15 +36,15 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
       try {
         //check to see if response for verification is an idx
         const idx = _.toNumber(msg);
-        if (!steps[idx].key) {
+        if (!entries[idx]) {
           throw Error(
             "That doesn't seem to be something you can edit. Choose a valid entry"
           );
         }
-        const step = steps[msg].key;
-        ctx.session.data[step] = null;
+        const dataKey = entries[msg].key;
+        ctx.session.data[dataKey] = null;
         ctx.session.step = idx;
-        await sendPrompt(ctx, formData, steps);
+        await sendPrompt(ctx, formData);
         return;
       } catch (err) {
         await ctx.reply(`${err.message}`);
@@ -52,11 +52,10 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
       }
     }
   }
+  const { step } = ctx.session;
+  const { type, verify, success, error, process, key: dataKey } = entries[step];
 
-  const stepKey = steps[ctx.session.step].key;
-  const { type, verify, success, error, process } = formData[stepKey];
-
-  // process the response if the response is
+  // process the response if the response is:
   if (type === "string") {
     let msg = ctx.message.text;
     if (process) {
@@ -66,7 +65,7 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
       if (verify(msg, ctx)) {
         await ctx.reply(success(ctx, msg));
         ctx.session.step += 1;
-        ctx.session.data[stepKey] = msg;
+        ctx.session.data[dataKey] = msg;
       } else {
         ctx.reply(error(ctx, msg));
       }
@@ -75,7 +74,6 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
     }
   } else if (type === "number") {
     let msg = ctx.message.text;
-
     try {
       if (process) {
         msg = process(msg);
@@ -86,7 +84,7 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
       if (verify(msgNumber, ctx)) {
         await ctx.reply(success(ctx, msgNumber));
         ctx.session.step += 1;
-        ctx.session.data[stepKey] = msgNumber;
+        ctx.session.data[dataKey] = msgNumber;
       } else {
         await ctx.reply(error(ctx, msg));
       }
@@ -107,7 +105,7 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
       if (verify(msg, ctx)) {
         await ctx.reply(success(ctx, msg));
         ctx.session.step += 1;
-        ctx.session.data[stepKey] = msg;
+        ctx.session.data[dataKey] = msg;
       } else {
         await ctx.reply(error(ctx, msg));
       }
@@ -120,22 +118,22 @@ module.exports.formInteractionTemplate = async (ctx, formData, steps) => {
 
   // The following part of the code handles the prompt to send after processing the response
 
-  if (ctx.session.step < steps.length) {
-    const newStepKey = steps[ctx.session.step].key;
-    if (ctx.session.data[newStepKey]) {
+  if (ctx.session.step < entries.length) {
+    const nextDataKey = entries[ctx.session.step].key;
+    if (ctx.session.data[nextDataKey]) {
       ctx.session.step = "verify";
     } else {
-      await sendPrompt(ctx, formData, steps);
+      await sendPrompt(ctx, formData);
       return;
     }
   }
 
-  if (ctx.session.step === "verify" || ctx.session.step >= steps.length) {
+  if (ctx.session.step === "verify" || ctx.session.step >= entries.length) {
     const { parseResponsesForDisplaying, verifyPrompt } = formData;
     const finalResponses = ctx.session.data;
     const responsesForDisplaying = parseResponsesForDisplaying(finalResponses);
     const responsesButton = new InlineKeyboard();
-    steps.forEach(({ title, key }, idx) => {
+    entries.forEach(({ title, key }, idx) => {
       responsesButton
         .text(`${title}: ${responsesForDisplaying[key]}`, `${idx}`)
         .row();
