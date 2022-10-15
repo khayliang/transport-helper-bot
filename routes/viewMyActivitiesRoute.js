@@ -65,11 +65,11 @@ const viewMyActivitiesForm = {
           vehicleClass,
           vehicleNo,
         } = activity;
-        activityMsg = `Vehicle no: ${vehicleNo}, class: ${vehicleClass}, date: ${moment(
+        activityMsg += `Vehicle no: ${vehicleNo}, class: ${vehicleClass}, \ndate: ${moment(
           new Date(timestamp),
         ).format(
           'DD/MM/YYYY',
-        )}\ninitial/final mileage: ${initialMileage}-${finalMileage}, distance travelled: ${
+        )},\ninitial/final mileage: ${initialMileage}-${finalMileage}, \ndistance travelled: ${
           _.toNumber(finalMileage) - _.toNumber(initialMileage)
         }\n\n`;
       });
