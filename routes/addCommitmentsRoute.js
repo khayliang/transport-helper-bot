@@ -4,13 +4,8 @@ const {
 } = require('../interactions/formInteractionTemplate');
 const { isValidDate } = require('../utils/isValidDate');
 const { buildButtonFunction } = require('../utils/buildButtonFunction');
+const { commitmentsEnum } = require('../enums/commitmentsEnum');
 
-const commitmentsEnum = {
-  ma: 'MA',
-  leave: 'Leave',
-  overseas_leave: 'Overseas Leave',
-  off: 'Off',
-};
 const addCommitmentsForm = {
   entries: [
     {
@@ -95,7 +90,7 @@ const addCommitmentsForm = {
         telegram_id: ctx.from.id,
       }); */
       await ctx.reply(`${JSON.stringify(responses)}`);
-      await ctx.reply('Commitment has been added! A message has been sent to your commander. Check back periodically to see if it has been confirmed');
+      await ctx.reply('Commitment has been added! A message has been sent to your commander.');
     } catch (err) {
       await ctx.reply(`Oops, something went wrong. ${err.message}`);
     }
