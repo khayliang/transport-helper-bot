@@ -1,5 +1,6 @@
 const { InlineKeyboard } = require('grammy');
 const _ = require('lodash');
+const { getUser } = require('../api/getUser');
 const { endInteraction } = require('./endInteraction');
 
 const sendPrompt = async (ctx, formData) => {
@@ -26,10 +27,16 @@ module.exports.formInteractionTemplate = async (ctx, formData) => {
   if (ctx.session.step === 'verify') {
     const msg = ctx.callbackQuery.data;
     if (msg === 'submit') {
-      const { onFinish } = formData;
-      const finalResponses = ctx.session.data;
-      if (onFinish) await onFinish(ctx, finalResponses);
-      await endInteraction(ctx);
+      try {
+        const { onFinish } = formData;
+        const finalResponses = ctx.session.data;
+        if (onFinish) await onFinish(ctx, finalResponses);
+        await endInteraction(ctx);
+        const userData = await getUser(ctx.from.id);
+        ctx.session.user = userData;
+      } catch (err) {
+        await ctx.reply(`Whoops! Something seems to have went wrong: ${err.message}`);
+      }
       return;
     }
     try {
