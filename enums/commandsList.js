@@ -14,4 +14,8 @@ module.exports.commandsList = [
     command: 'add_activity',
     description: 'Add a new vehicle activity e.g detail, WPT',
   },
+  {
+    command: 'add_commitments',
+    description: 'Apply for leave/off/MA',
+  },
 ];

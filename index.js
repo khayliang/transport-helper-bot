@@ -18,6 +18,7 @@ const {
 const { getUser } = require('./api/getUser');
 
 const { commandsList } = require('./enums/commandsList');
+const { addCommitmentsRoute } = require('./routes/addCommitmentsRoute');
 
 const bot = new Bot(process.env.TOKEN_DEV);
 
@@ -78,6 +79,10 @@ const router = new Router(async (ctx) => {
     await endInteraction(ctx);
     ctx.session.route = 'add_activity';
     return 'add_activity';
+  } if (ctx.hasCommand('add_commitments')) {
+    await endInteraction(ctx);
+    ctx.session.route = 'add_commitments';
+    return 'add_commitments';
   }
   return currentRoute;
 });
@@ -86,6 +91,7 @@ router.route('start', startRoute);
 router.route('add_vehicle', addVehicleRoute);
 router.route('create_account', createAccountRoute);
 router.route('add_activity', addActivityRoute);
+router.route('add_commitments', addCommitmentsRoute);
 router.route('view_my_mileage', viewMyMileageRoute);
 router.route('view_my_activities', viewMyActivitiesRoute);
 router.route('view_personnel_mileage', viewPersonnelMileageRoute);
