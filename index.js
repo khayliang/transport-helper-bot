@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const { Bot, session } = require('grammy');
 const { Router } = require('@grammyjs/router');
+const { limit } = require('@grammyjs/ratelimiter');
 
 const { startRoute } = require('./routes/startRoute');
 const { addVehicleRoute } = require('./routes/addVehicleRoute');
@@ -27,9 +28,11 @@ bot.use(
       route: 'start',
       step: 'idle',
       data: {},
+      locked: false,
     }),
   }),
 );
+bot.use(limit({ timeFrame: 2000 }));
 
 bot.api.setMyCommands(commandsList);
 

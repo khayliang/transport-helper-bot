@@ -13,7 +13,7 @@ const sendPrompt = async (ctx, formData) => {
   }
 };
 
-module.exports.formInteractionTemplate = async (ctx, formData) => {
+const formInteractionTemplateUnlocked = async (ctx, formData) => {
   const { entries } = formData;
   // run this if the form hasn't been initialized
   if (ctx.session.step === 'idle') {
@@ -57,72 +57,77 @@ module.exports.formInteractionTemplate = async (ctx, formData) => {
       return;
     }
   }
-  const { step } = ctx.session;
-  const {
-    type, verify, success, error, process, key: dataKey,
-  } = entries[step];
+  try {
+    const { step } = ctx.session;
+    const {
+      type, verify, success, error, process, key: dataKey,
+    } = entries[step];
 
-  // process the response if the response is:
-  if (type === 'string') {
-    let msg = ctx.message.text;
-    if (process) {
-      msg = process({ ctx, data: msg });
-    }
-    try {
-      if (verify({ data: msg, ctx })) {
-        await ctx.reply(success({ ctx, data: msg }));
-        ctx.session.step += 1;
-        ctx.session.data[dataKey] = msg;
-      } else {
-        ctx.reply(error({ ctx, data: msg }));
-      }
-    } catch (err) {
-      await ctx.reply(`${error({ ctx, data: msg })}, ${err.message}`);
-    }
-  } else if (type === 'number') {
-    let msg = ctx.message.text;
-    try {
+    // process the response if the response is:
+    if (type === 'string') {
+      if (!ctx.message) throw Error("I didn't receive a valid message from you.");
+      let msg = ctx.message.text;
       if (process) {
         msg = process({ ctx, data: msg });
       }
-      const msgNumber = _.toNumber(msg);
-      if (!msgNumber) throw Error('Give me a number!');
+      try {
+        if (verify({ data: msg, ctx })) {
+          await ctx.reply(success({ ctx, data: msg }));
+          ctx.session.step += 1;
+          ctx.session.data[dataKey] = msg;
+        } else {
+          ctx.reply(error({ ctx, data: msg }));
+        }
+      } catch (err) {
+        await ctx.reply(`${error({ ctx, data: msg })}, ${err.message}`);
+      }
+    } else if (type === 'number') {
+      if (!ctx.message) throw Error("I didn't receive a valid message from you.");
+      let msg = ctx.message.text;
+      try {
+        if (process) {
+          msg = process({ ctx, data: msg });
+        }
+        const msgNumber = _.toNumber(msg);
+        if (!msgNumber) throw Error('Give me a number!');
 
-      if (verify({ data: msgNumber, ctx })) {
-        await ctx.reply(success({ ctx, data: msgNumber }));
-        ctx.session.step += 1;
-        ctx.session.data[dataKey] = msgNumber;
-      } else {
+        if (verify({ data: msgNumber, ctx })) {
+          await ctx.reply(success({ ctx, data: msgNumber }));
+          ctx.session.step += 1;
+          ctx.session.data[dataKey] = msgNumber;
+        } else {
+          await ctx.reply(error({ ctx, data: msg }));
+        }
+      } catch (err) {
         await ctx.reply(error({ ctx, data: msg }));
       }
-    } catch (err) {
-      await ctx.reply(error({ ctx, data: msg }));
+    } else if (type === 'buttons') {
+      let msg = '';
+      try {
+        if (!ctx.callbackQuery) {
+          msg = ctx.message.text;
+        } else {
+          msg = ctx.callbackQuery.data;
+        }
+        if (process) {
+          msg = process({ ctx, data: msg });
+        }
+        if (verify({ data: msg, ctx })) {
+          await ctx.reply(success({ ctx, data: msg }));
+          ctx.session.step += 1;
+          ctx.session.data[dataKey] = msg;
+        } else {
+          await ctx.reply(error({ ctx, data: msg }));
+        }
+      } catch (err) {
+        await ctx.reply(`${error({ ctx, data: msg })}, ${err.message}`);
+      }
+    } else {
+      throw Error('Unknown type');
     }
-  } else if (type === 'buttons') {
-    let msg = '';
-    try {
-      if (!ctx.callbackQuery) {
-        msg = ctx.message.text;
-      } else {
-        msg = ctx.callbackQuery.data;
-      }
-      if (process) {
-        msg = process({ ctx, data: msg });
-      }
-      if (verify({ data: msg, ctx })) {
-        await ctx.reply(success({ ctx, data: msg }));
-        ctx.session.step += 1;
-        ctx.session.data[dataKey] = msg;
-      } else {
-        await ctx.reply(error({ ctx, data: msg }));
-      }
-    } catch (err) {
-      await ctx.reply(`${error({ ctx, data: msg })}, ${err.message}`);
-    }
-  } else {
-    throw Error('Unknown type');
+  } catch (err) {
+    await ctx.reply(`${err.message}\nThis really shouldn't happen. If you're spamming the bot, stop that.`);
   }
-
   // The following part of the code handles the prompt to send after processing the response
 
   if (ctx.session.step < entries.length) {
@@ -157,5 +162,14 @@ module.exports.formInteractionTemplate = async (ctx, formData) => {
       { reply_markup: responsesButton },
     );
     ctx.session.step = 'verify';
+  }
+};
+
+module.exports.formInteractionTemplate = async (ctx, formData) => {
+  const { locked } = ctx.session;
+  if (!locked) {
+    ctx.session.locked = true;
+    await formInteractionTemplateUnlocked(ctx, formData);
+    ctx.session.locked = false;
   }
 };
