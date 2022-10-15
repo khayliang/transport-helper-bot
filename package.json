@@ -6,7 +6,9 @@
   "scripts": {
     "test": "test",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json,yml}'",
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "npx eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint:fix": "npm run lint -- --fix"
   },
   "author": "khayliang",
   "license": "ISC",
