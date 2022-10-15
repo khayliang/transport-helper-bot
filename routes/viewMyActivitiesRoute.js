@@ -7,13 +7,15 @@ const { monthsEnum } = require('../enums/monthsEnum');
 const {
   formInteractionTemplate,
 } = require('../interactions/formInteractionTemplate');
+const { buildButtonFunction } = require('../utils/buildButtonFunction');
 
 const viewMyActivitiesForm = {
   entries: [
     {
       key: 'year',
       title: 'Year',
-      type: 'number',
+      type: 'buttons',
+      buttons: buildButtonFunction([[moment(new Date()).format('YYYY'), 'This year']]),
       verify: ({ data }) => {
         if (!/\d{4}/.test(data)) return false;
         if (data > new Date().getFullYear()) return false;
