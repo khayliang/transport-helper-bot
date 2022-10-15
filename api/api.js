@@ -1,5 +1,5 @@
-let url = "";
-if (process.env.NODE_ENV === "development") {
+let url = '';
+if (process.env.NODE_ENV === 'development') {
   url = process.env.API_URL_DEV;
 } else {
   url = process.env.API_URL_DEV;

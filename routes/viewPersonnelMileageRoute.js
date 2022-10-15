@@ -1,13 +1,17 @@
-const { getUsersInUnit } = require("../api/getUsersInUnit");
-const { nodesEnum } = require("../enums/nodesEnum");
+const { getUsersInUnit } = require('../api/getUsersInUnit');
+const { nodesEnum } = require('../enums/nodesEnum');
 
 module.exports.viewPersonnelMileageRoute = async (ctx) => {
-  const { army_unit } = ctx.session.user;
-  const users = await getUsersInUnit({ army_unit });
-  let msg = `Mileage for ${nodesEnum[army_unit]}:\n`;
-  users.forEach(({ name, total_mileage }, idx) => {
-    msg += `${name}: ${total_mileage}\n`;
-  });
-  await ctx.reply(msg);
-  ctx.session.route = "start";
+  const { armyUnit } = ctx.session.user;
+  try {
+    const users = await getUsersInUnit({ armyUnit });
+    let msg = `Mileage for ${nodesEnum[armyUnit]}:\n`;
+    users.forEach(({ name, totalMileage }) => {
+      msg += `${name}: ${totalMileage}\n`;
+    });
+    await ctx.reply(msg);
+    ctx.session.route = 'start';
+  } catch (err) {
+    await ctx.reply(err.message);
+  }
 };
