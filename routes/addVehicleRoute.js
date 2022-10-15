@@ -1,5 +1,5 @@
 const moment = require('moment');
-const { nodesEnum } = require('../enums/nodesEnum');
+
 const {
   formInteractionTemplate,
 } = require('../interactions/formInteractionTemplate');
@@ -7,24 +7,8 @@ const { createNewVehicle } = require('../api/createNewVehicle');
 const { isValidDate } = require('../utils/isValidDate');
 const { buildButtonFunction } = require('../utils/buildButtonFunction');
 
-const modelsEnum = {
-  five_ton: {
-    name: 'Five Tonner',
-    class: 4,
-  },
-  ouv: {
-    name: 'OUV',
-    class: 3,
-  },
-  mb: {
-    name: 'MB 290',
-    class: 4,
-  },
-  combat_amby: {
-    name: 'Combat Ambulance',
-    class: 4,
-  },
-};
+const { nodesEnum } = require('../enums/nodesEnum');
+const { modelsEnum } = require('../enums/modelsEnum');
 
 const addVehicleForm = {
   entries: [

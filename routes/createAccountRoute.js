@@ -4,12 +4,7 @@ const {
   formInteractionTemplate,
 } = require('../interactions/formInteractionTemplate');
 const { buildButtonFunction } = require('../utils/buildButtonFunction');
-
-const rolesEnum = {
-  tpt_opr: 'Transport Operator',
-  admin: 'Admin Support',
-  cmdr: 'Commander',
-};
+const { rolesEnum } = require('../enums/rolesEnum');
 
 const createAccountForm = {
   entries: [
