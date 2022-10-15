@@ -50,6 +50,7 @@ const createAccountForm = {
         if (rolesEnum[data]) return true;
         else return false;
       },
+      display: (data) => rolesEnum[data],
       prompt: (ctx, data) => `What's your role in the node?`,
       success: (ctx, data) => `Being a ${rolesEnum[data]} sounds fun!`,
       error: (ctx, data) =>
@@ -70,6 +71,7 @@ const createAccountForm = {
         if (nodesEnum[data]) return true;
         else return false;
       },
+      display: (data) => nodesEnum[data],
       prompt: (ctx, data) => `What node are you from?`,
       success: (ctx, data) =>
         `${nodesEnum[data]}! I heard a lot of stories about that place...`,
@@ -100,24 +102,6 @@ const createAccountForm = {
     } catch (err) {
       await ctx.reply(`Oops, something went wrong. ${err.message}`);
     }
-  },
-  parseResponsesForDisplaying: (responses) => {
-    let responsesForDisplay = {};
-    for (key in responses) {
-      const data = responses[key];
-      if (key === "name") {
-        responsesForDisplay.name = data;
-      } else if (key === "nric") {
-        responsesForDisplay.nric = data;
-      } else if (key === "rank") {
-        responsesForDisplay.rank = rolesEnum[data];
-      } else if (key === "army_unit") {
-        responsesForDisplay.army_unit = nodesEnum[data];
-      } else if (key === "total_mileage") {
-        responsesForDisplay.total_mileage = `${data}`;
-      }
-    }
-    return responsesForDisplay;
   },
 };
 

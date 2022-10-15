@@ -77,6 +77,7 @@ const addVehicleForm = {
       verify: (data) => {
         if (modelsEnum[data]) return true;
       },
+      display: (data) => `${modelsEnum[data].name}`,
       prompt: (ctx, data) => "What's the vehicle model?",
       success: (ctx, data) => {
         ctx.session.data.vehicle_class = modelsEnum[data].class;
@@ -117,6 +118,7 @@ const addVehicleForm = {
         return lastActivity.getTime();
       },
       verify: () => true,
+      display: (data) => `${new Date(data).toDateString()}`,
       prompt: (ctx, data) =>
         `What is date of the last vehicle movement/WPT? Enter in format DD/MM/YYYY`,
       success: (ctx, data) => {
@@ -134,27 +136,6 @@ const addVehicleForm = {
     } catch (err) {
       await ctx.reply(`Oops, something went wrong. ${err.message}`);
     }
-  },
-  parseResponsesForDisplaying: (responses) => {
-    let responsesForDisplay = {};
-    for (key in responses) {
-      const data = responses[key];
-      if (key === "node") {
-        responsesForDisplay.node = nodesEnum[data];
-      } else if (key === "vehicle_no") {
-        responsesForDisplay.vehicle_no = `${data}`;
-      } else if (key === "model") {
-        responsesForDisplay.model = `${modelsEnum[data].name}`;
-      } else if (key === "current_mileage") {
-        responsesForDisplay.current_mileage = `${data}`;
-      } else if (key === "last_topup_mileage") {
-        responsesForDisplay.last_topup_mileage = `${data}`;
-      } else if (key === "last_activity_timestamp") {
-        const date = new Date(data);
-        responsesForDisplay.last_activity_timestamp = `${date.toDateString()}`;
-      }
-    }
-    return responsesForDisplay;
   },
 };
 

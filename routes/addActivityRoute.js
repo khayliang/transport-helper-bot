@@ -59,6 +59,7 @@ const addActivityForm = {
         if (activitiesEnum[data]) return true;
         else return false;
       },
+      display: (data) => `${activitiesEnum[data]}`,
       prompt: (ctx, data) => "What type of activity was it?",
       success: (ctx, data) => `${activitiesEnum[data]}? Great!`,
       error: (ctx, data) =>
@@ -81,6 +82,7 @@ const addActivityForm = {
         return lastActivity.getTime();
       },
       verify: () => true,
+      display: (data) => `${new Date(data).toDateString()}`,
       prompt: (ctx, data) =>
         `What is date of the activity?\nType the date in the format DD/MM/YYYY, or choose the button`,
       success: (ctx, data) => {
@@ -123,27 +125,6 @@ const addActivityForm = {
     } catch (err) {
       await ctx.reply(`Oops, something went wrong. ${err.message}`);
     }
-  },
-  parseResponsesForDisplaying: (responses) => {
-    let responsesForDisplay = {};
-    for (key in responses) {
-      const data = responses[key];
-      if (key === "vehicle_no") {
-        responsesForDisplay.vehicle_no = `${data}`;
-      } else if (key === "vehicle_class") {
-        responsesForDisplay.vehicle_class = `${data}`;
-      } else if (key === "activity_type") {
-        responsesForDisplay.activity_type = `${activitiesEnum[data]}`;
-      } else if (key === "initial_mileage") {
-        responsesForDisplay.initial_mileage = `${data}`;
-      } else if (key === "final_mileage") {
-        responsesForDisplay.final_mileage = `${data}`;
-      } else if (key === "timestamp") {
-        const date = new Date(data);
-        responsesForDisplay.timestamp = `${date.toDateString()}`;
-      }
-    }
-    return responsesForDisplay;
   },
 };
 

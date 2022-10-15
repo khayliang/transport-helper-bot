@@ -44,6 +44,7 @@ const viewMyActivitiesForm = {
         if (monthsEnum[data]) return true;
         else return false;
       },
+      display: (data) => `${monthsEnum[data]}`,
       prompt: (ctx, data) => `What month do you want to view?`,
       success: (ctx, data) => `You want to view ${monthsEnum[data]}`,
       error: (ctx, data) =>
@@ -79,18 +80,6 @@ const viewMyActivitiesForm = {
     } catch (err) {
       await ctx.reply(`Oops, something went wrong. ${err.message}`);
     }
-  },
-  parseResponsesForDisplaying: (responses) => {
-    let responsesForDisplay = {};
-    for (key in responses) {
-      const data = responses[key];
-      if (key === "year") {
-        responsesForDisplay.year = `${data}`;
-      } else if (key === "month") {
-        responsesForDisplay.month = `${monthsEnum[data]}`;
-      }
-    }
-    return responsesForDisplay;
   },
 };
 module.exports.viewMyActivitiesRoute = async (ctx) =>

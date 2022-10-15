@@ -129,13 +129,17 @@ module.exports.formInteractionTemplate = async (ctx, formData) => {
   }
 
   if (ctx.session.step === "verify" || ctx.session.step >= entries.length) {
-    const { parseResponsesForDisplaying, verifyPrompt } = formData;
+    const { verifyPrompt } = formData;
     const finalResponses = ctx.session.data;
-    const responsesForDisplaying = parseResponsesForDisplaying(finalResponses);
     const responsesButton = new InlineKeyboard();
-    entries.forEach(({ title, key }, idx) => {
+    entries.forEach(({ title, key, display }, idx) => {
       responsesButton
-        .text(`${title}: ${responsesForDisplaying[key]}`, `${idx}`)
+        .text(
+          `${title}: ${
+            display ? display(finalResponses[key]) : finalResponses[key]
+          }`,
+          `${idx}`
+        )
         .row();
     });
     responsesButton.text(`Submit`, "submit").row();
