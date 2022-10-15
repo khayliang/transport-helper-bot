@@ -18,4 +18,8 @@ module.exports.commandsList = [
     command: 'add_commitments',
     description: 'Apply for leave/off/MA',
   },
+  {
+    command: 'view_my_commitments',
+    description: 'View my applied leave/off/MA',
+  },
 ];
