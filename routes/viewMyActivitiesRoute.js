@@ -54,7 +54,7 @@ const viewMyActivitiesForm = {
     try {
       const activities = await getUserActivity({
         ...responses,
-        telegramId: `${ctx.session.user.telegramId}`,
+        telegram_id: ctx.from.id,
       });
       let activityMsg = '';
       activities.forEach((activity) => {

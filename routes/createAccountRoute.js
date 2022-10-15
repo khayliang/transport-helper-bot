@@ -65,7 +65,6 @@ const createAccountForm = {
     },
   ],
   onStart: async (ctx) => {
-    ctx.session.data.telegramId = `${ctx.from.id}`;
     await ctx.reply(
       "It seems like you're new here. Let's create a new account.",
     );

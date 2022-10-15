@@ -94,7 +94,7 @@ const addActivityForm = {
     try {
       await createNewActivity({
         ...responses,
-        telegram_id: ctx.session.user.telegramId,
+        telegram_id: ctx.from.id,
       });
       await ctx.reply('Activity has been added!');
     } catch (err) {
