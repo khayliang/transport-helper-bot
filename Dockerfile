@@ -15,11 +15,6 @@ WORKDIR /app
 
 ENV NODE_ENV production
 
-RUN --mount=type=secret,id=TELEGRAM_BOT_TOKEN \
-    TELEGRAM_BOT_TOKEN="$(cat /run/secrets/TELEGRAM_BOT_TOKEN)" 
-RUN --mount=type=secret,id=API_URL \
-    API_URL="$(cat /run/secrets/API_URL)" 
-
 COPY . .
 
 RUN npm install && npm run build

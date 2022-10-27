@@ -20,7 +20,5 @@ jobs:
             flyctl secrets set TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN && \
             flyctl secrets set API_URL=$API_URL && \
             flyctl deploy \
-              --build-secret TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN \
-              --build-secret API_URL=$API_URL \
               -a transport-helper-bot-prod \
               --remote-only 
