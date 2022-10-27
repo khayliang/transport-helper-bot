@@ -71,7 +71,10 @@ const createAccountForm = {
   },
   onFinish: async (ctx, responses) => {
     try {
-      await createNewUser(responses);
+      await createNewUser({
+        ...responses,
+        telegram_id: ctx.from.id,
+      });
       await ctx.reply('Your account has been created!');
     } catch (err) {
       await ctx.reply(`Oops, something went wrong. ${err.message}`);
