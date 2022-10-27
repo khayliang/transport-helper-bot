@@ -1,9 +1,5 @@
-let url = '';
-if (process.env.NODE_ENV === 'development') {
-  url = process.env.API_URL_DEV;
-} else {
-  url = process.env.API_URL_DEV;
-}
+let url = process.env.API_URL;
+
 module.exports.api = {
   createNewActivity: `${url}/create_new_activity`,
   createNewUser: `${url}/create_new_user`,

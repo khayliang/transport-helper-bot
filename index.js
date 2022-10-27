@@ -21,7 +21,7 @@ const { commandsList } = require('./enums/commandsList');
 const { addCommitmentsRoute } = require('./routes/addCommitmentsRoute');
 const { viewMyCommitments } = require('./routes/viewMyCommitments');
 
-const bot = new Bot(process.env.TOKEN_DEV);
+const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN);
 
 bot.use(
   session({
