@@ -1,4 +1,4 @@
-let url = process.env.API_URL;
+const url = process.env.API_URL;
 
 module.exports.api = {
   createNewActivity: `${url}/create_new_activity`,
