@@ -17,7 +17,9 @@ jobs:
         - uses: actions/checkout@v2
         - uses: superfly/flyctl-actions/setup-flyctl@master
         - run: |
-            flyctl deploy --remote-only \
+            flyctl deploy \
               --build-secret TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN \
               --build-secret API_URL=$API_URL \
-              -a transport-helper-bot-dev
+              -a transport-helper-bot-dev \
+              --remote-only
+
