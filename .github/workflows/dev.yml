@@ -17,5 +17,5 @@ jobs:
         - uses: actions/checkout@v2
         - uses: superfly/flyctl-actions/setup-flyctl@master
         - run: |
-            echo "HIHIHIHI $API_URL"
+            echo "HIHIHIHI ${{ secrets.API_URL_DEV }}"
 
