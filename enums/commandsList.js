@@ -1,6 +1,5 @@
 module.exports.commandsList = [
   { command: 'start', description: 'Start the bot' },
-  { command: 'add_vehicle', description: 'Track a new vehicle in your node' },
   { command: 'view_my_mileage', description: 'View your current mileage' },
   {
     command: 'view_my_activities',
@@ -13,13 +12,5 @@ module.exports.commandsList = [
   {
     command: 'add_activity',
     description: 'Add a new vehicle activity e.g detail, WPT',
-  },
-  {
-    command: 'add_commitments',
-    description: 'Apply for leave/off/MA',
-  },
-  {
-    command: 'view_my_commitments',
-    description: 'View my applied leave/off/MA',
   },
 ];

@@ -18,8 +18,6 @@ const {
 const { getUser } = require('./api/getUser');
 
 const { commandsList } = require('./enums/commandsList');
-const { addCommitmentsRoute } = require('./routes/addCommitmentsRoute');
-const { viewMyCommitments } = require('./routes/viewMyCommitments');
 
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN);
 
@@ -80,15 +78,7 @@ const router = new Router(async (ctx) => {
     await endInteraction(ctx);
     ctx.session.route = 'add_activity';
     return 'add_activity';
-  } if (ctx.hasCommand('add_commitments')) {
-    await endInteraction(ctx);
-    ctx.session.route = 'add_commitments';
-    return 'add_commitments';
-  } if (ctx.hasCommand('view_my_commitments')) {
-    await endInteraction(ctx);
-    ctx.session.route = 'view_my_commitments';
-    return 'view_my_commitments';
-  }
+  } 
   return currentRoute;
 });
 
@@ -96,11 +86,9 @@ router.route('start', startRoute);
 router.route('add_vehicle', addVehicleRoute);
 router.route('create_account', createAccountRoute);
 router.route('add_activity', addActivityRoute);
-router.route('add_commitments', addCommitmentsRoute);
 router.route('view_my_mileage', viewMyMileageRoute);
 router.route('view_my_activities', viewMyActivitiesRoute);
 router.route('view_personnel_mileage', viewPersonnelMileageRoute);
-router.route('view_my_commitments', viewMyCommitments);
 router.otherwise(async (ctx) => {
   ctx.session.route = 'start';
   await ctx.reply('Whoops! Something seems to have went wrong.');
