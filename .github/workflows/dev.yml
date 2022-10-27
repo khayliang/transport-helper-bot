@@ -8,6 +8,7 @@ env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
   TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN_DEV }}
   API_URL: ${{ secrets.API_URL_DEV }}
+  TEST_VAR: imhere
 
 jobs:
   deploy:
@@ -17,5 +18,5 @@ jobs:
         - uses: actions/checkout@v2
         - uses: superfly/flyctl-actions/setup-flyctl@master
         - run: |
-            echo "HIHIHIHI ${{ secrets.API_URL_DEV }}"
+            echo "HIHIHIHI $TEST_VAR"
 
