@@ -1,4 +1,4 @@
-# fly.toml file generated for transport-helper-bot-dev on 2022-10-27T17:30:44+08:00
+# fly.toml file generated for transport-helper-bot-dev on 2022-10-28T16:11:08+08:00
 
 app = "transport-helper-bot-dev"
 kill_signal = "SIGINT"
@@ -14,11 +14,11 @@ processes = []
 
 [[services]]
   http_checks = []
-  tcp_checks = []
   internal_port = 8080
   processes = ["app"]
   protocol = "tcp"
   script_checks = []
+  tcp_checks = []
   [services.concurrency]
     hard_limit = 25
     soft_limit = 20
