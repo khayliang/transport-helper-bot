@@ -5,7 +5,7 @@ const { Router } = require('@grammyjs/router');
 const { limit } = require('@grammyjs/ratelimiter');
 
 const { startRoute } = require('./routes/startRoute');
-const { addVehicleRoute } = require('./routes/addVehicleRoute');
+const { registerVehicleRoute } = require('./routes/registerVehicleRoute');
 const { createAccountRoute } = require('./routes/createAccountRoute');
 const { endInteraction } = require('./interactions/endInteraction');
 const { addActivityRoute } = require('./routes/addActivityRoute');
@@ -58,10 +58,10 @@ const router = new Router(async (ctx) => {
     await endInteraction(ctx);
     ctx.session.route = 'create_account';
     return 'create_account';
-  } if (ctx.hasCommand('add_vehicle')) {
+  } if (ctx.hasCommand('register_vehicle')) {
     await endInteraction(ctx);
-    ctx.session.route = 'add_vehicle';
-    return 'add_vehicle';
+    ctx.session.route = 'register_vehicle';
+    return 'register_vehicle';
   } if (ctx.hasCommand('view_my_mileage')) {
     await endInteraction(ctx);
     ctx.session.route = 'view_my_mileage';
@@ -83,7 +83,7 @@ const router = new Router(async (ctx) => {
 });
 
 router.route('start', startRoute);
-router.route('add_vehicle', addVehicleRoute);
+router.route('register_vehicle', registerVehicleRoute);
 router.route('create_account', createAccountRoute);
 router.route('add_activity', addActivityRoute);
 router.route('view_my_mileage', viewMyMileageRoute);

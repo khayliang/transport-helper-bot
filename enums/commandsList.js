@@ -13,4 +13,8 @@ module.exports.commandsList = [
     command: 'add_activity',
     description: 'Add a new vehicle activity e.g detail, WPT',
   },
+  {
+    command: 'register_vehicle',
+    description: 'Register a vehicle into the system for tracking WPT/Topups',
+  },
 ];

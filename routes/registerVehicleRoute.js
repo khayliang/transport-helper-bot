@@ -11,7 +11,7 @@ const { nodesEnum } = require('../enums/nodesEnum');
 const { modelsEnum } = require('../enums/modelsEnum');
 const { activitiesEnum } = require('../enums/activitiesEnum');
 
-const addVehicleForm = {
+const registerVehicleForm = {
   entries: [
     {
       key: 'node',
@@ -117,4 +117,4 @@ const addVehicleForm = {
   },
 };
 
-module.exports.addVehicleRoute = async (ctx) => formInteractionTemplate(ctx, addVehicleForm);
+module.exports.registerVehicleRoute = async (ctx) => formInteractionTemplate(ctx, registerVehicleForm);
