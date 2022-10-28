@@ -117,4 +117,6 @@ const registerVehicleForm = {
   },
 };
 
-module.exports.registerVehicleRoute = async (ctx) => formInteractionTemplate(ctx, registerVehicleForm);
+module.exports.registerVehicleRoute = async (ctx) => {
+  formInteractionTemplate(ctx, registerVehicleForm);
+};

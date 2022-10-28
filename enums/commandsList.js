@@ -14,6 +14,10 @@ module.exports.commandsList = [
     description: 'Add a new vehicle activity e.g detail, WPT',
   },
   {
+    command: 'view_my_wpt_list',
+    description: 'Generate list of vehicles that require WPT',
+  },
+  {
     command: 'register_vehicle',
     description: 'Register a vehicle into the system for tracking WPT/Topups',
   },

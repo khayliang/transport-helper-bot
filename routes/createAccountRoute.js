@@ -45,10 +45,10 @@ const createAccountForm = {
       title: 'Rank',
       type: 'string',
       verify: ({ data }) => /\w{3}/.test(data),
-      process: ({data}) => data.toUpperCase(),
+      process: ({ data }) => data.toUpperCase(),
       prompt: () => 'What\'s your rank?',
       success: ({ data }) => `${data}? Wow, very respectable!`,
-      error: () => `Please enter 3 letters only`,
+      error: () => 'Please enter 3 letters only',
     },
     {
       key: 'army_unit',
