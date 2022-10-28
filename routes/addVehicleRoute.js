@@ -9,6 +9,7 @@ const { buildButtonFunction } = require('../utils/buildButtonFunction');
 
 const { nodesEnum } = require('../enums/nodesEnum');
 const { modelsEnum } = require('../enums/modelsEnum');
+const { activitiesEnum } = require('../enums/activitiesEnum');
 
 const addVehicleForm = {
   entries: [
@@ -84,12 +85,26 @@ const addVehicleForm = {
       },
       verify: () => true,
       display: ({ data }) => `${new Date(data).toDateString()}`,
-      prompt: () => 'What is date of the last vehicle movement/WPT? Enter in format DD/MM/YYYY',
+      prompt: () => 'What is date of the last vehicle activity? Enter in format DD/MM/YYYY',
       success: ({ data }) => {
         const date = new Date(data);
         return `${date.toDateString()} seems to be the date.`;
       },
       error: () => 'Please enter a valid date. Enter in format DD/MM/YYYY',
+    },
+    {
+      key: 'last_activity_type',
+      title: 'Last activity type',
+      type: 'buttons',
+      buttons: buildButtonFunction(Object.entries(activitiesEnum)),
+      verify: ({ data }) => {
+        if (activitiesEnum[data]) return true;
+        return false;
+      },
+      display: ({ data }) => `${activitiesEnum[data]}`,
+      prompt: () => 'What type of activity was it?',
+      success: ({ data }) => `${activitiesEnum[data]}? Great!`,
+      error: ({ data }) => `Never heard of ${data} before... Please select a valid activity`,
     },
   ],
   onFinish: async (ctx, responses) => {
