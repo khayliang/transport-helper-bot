@@ -3,7 +3,7 @@ const moment = require('moment');
 const {
   formInteractionTemplate,
 } = require('../interactions/formInteractionTemplate');
-const { createNewVehicle } = require('../api/createNewVehicle');
+const { registerVehicle } = require('../api/registerVehicle');
 const { isValidDate } = require('../utils/isValidDate');
 const { buildButtonFunction } = require('../utils/buildButtonFunction');
 
@@ -109,7 +109,7 @@ const registerVehicleForm = {
   ],
   onFinish: async (ctx, responses) => {
     try {
-      await createNewVehicle(responses);
+      await registerVehicle(responses);
       await ctx.reply('Vehicle has been added!');
     } catch (err) {
       await ctx.reply(`Oops, something went wrong. ${err.message}`);
