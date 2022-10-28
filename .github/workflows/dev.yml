@@ -22,4 +22,5 @@ jobs:
             flyctl deploy \
               -a transport-helper-bot-dev \
               --remote-only
+              --detach
 
