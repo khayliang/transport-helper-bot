@@ -17,6 +17,7 @@
     "@grammyjs/conversations": "^1.0.2",
     "@grammyjs/ratelimiter": "^1.1.6",
     "@grammyjs/router": "^2.0.0",
+    "@grammyjs/runner": "^1.0.4",
     "@grammyjs/transformer-throttler": "^1.1.2",
     "axios": "^0.27.2",
     "camelize": "^1.0.1",

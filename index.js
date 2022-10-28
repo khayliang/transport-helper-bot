@@ -20,11 +20,17 @@ const { getUser } = require('./api/getUser');
 const { commandsList } = require('./enums/commandsList');
 const { viewMyWptListRoute } = require('./routes/viewMyWptListRoute');
 const { apiThrottler } = require('@grammyjs/transformer-throttler');
+const { run, sequentialize } = require('@grammyjs/runner');
 
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN);
 
+const getSessionKey = (ctx) => {
+  return ctx.chat?.id.toString();
+}
+bot.use(sequentialize(getSessionKey));
 bot.use(
   session({
+    getSessionKey,
     initial: () => ({
       user: null,
       route: 'start',
@@ -103,4 +109,9 @@ router.otherwise(async (ctx) => {
   await ctx.reply('Whoops! Something seems to have went wrong.');
 });
 bot.use(router);
-bot.start();
+
+const runner = run(bot);
+
+const stopRunner = () => runner.isRunning() && runner.stop();
+process.once("SIGINT", stopRunner);
+process.once("SIGTERM", stopRunner);
