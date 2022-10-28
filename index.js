@@ -19,6 +19,7 @@ const { getUser } = require('./api/getUser');
 
 const { commandsList } = require('./enums/commandsList');
 const { viewMyWptListRoute } = require('./routes/viewMyWptListRoute');
+const { apiThrottler } = require('@grammyjs/transformer-throttler');
 
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN);
 
@@ -34,6 +35,8 @@ bot.use(
   }),
 );
 bot.use(limit({ timeFrame: 2000 }));
+
+bot.api.config.use(apiThrottler())
 
 bot.api.setMyCommands(commandsList);
 
