@@ -1,4 +1,5 @@
 const { getWptListForNode } = require('../api/getWptListForNode');
+const { nodesEnum } = require('../enums/nodesEnum');
 
 module.exports.viewMyWptListRoute = async (ctx) => {
   try {
@@ -6,7 +7,7 @@ module.exports.viewMyWptListRoute = async (ctx) => {
     const resp = await getWptListForNode({ node: armyUnit });
     const { unregistered, node } = resp;
     let msg = '';
-    msg += `WPT for ${armyUnit} Node\n`;
+    msg += `WPT for ${nodesEnum[armyUnit]}\n`;
     msg += 'WPT 1: \n';
     node.wpt1.forEach(({ vehicleNo }) => {
       msg += `${vehicleNo}\n`;
