@@ -5,8 +5,12 @@ const { api } = require('./api');
 const addr = api.getWptListForNode;
 
 module.exports.getWptListForNode = async ({ node }) => {
-  const { data } = await axios.get(addr, {
-    params: { node },
-  });
-  return camelize(data);
+  try {
+    const { data } = await axios.get(addr, {
+      params: { node },
+    });
+    return camelize(data);
+  } catch (err) {
+    throw (new Error(err.response.data));
+  }
 };

@@ -5,10 +5,14 @@ const { api } = require('./api');
 const addr = api.getUser;
 
 module.exports.getUser = async (userId) => {
-  const { data } = await axios.get(addr, {
-    params: {
-      telegram_id: userId,
-    },
-  });
-  return camelize(data);
+  try {
+    const { data } = await axios.get(addr, {
+      params: {
+        telegram_id: userId,
+      },
+    });
+    return camelize(data);
+  } catch (err) {
+    throw (new Error(err.response.data));
+  }
 };

@@ -5,6 +5,10 @@ const { api } = require('./api');
 const addr = api.createNewActivity;
 
 module.exports.createNewActivity = async (activityData) => {
-  const resp = await axios.post(addr, snakeize(activityData));
-  return resp;
+  try {
+    const resp = await axios.post(addr, snakeize(activityData));
+    return resp;
+  } catch (err) {
+    throw (new Error(err.response.data));
+  }
 };

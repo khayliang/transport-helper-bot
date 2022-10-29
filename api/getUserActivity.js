@@ -6,9 +6,13 @@ const { api } = require('./api');
 const addr = api.getUserActivity;
 
 module.exports.getUserActivity = async (params) => {
-  const snakeizedParams = snakeize(params);
-  const { data: activities } = await axios.get(addr, {
-    params: snakeizedParams,
-  });
-  return camelize(activities);
+  try {
+    const snakeizedParams = snakeize(params);
+    const { data: activities } = await axios.get(addr, {
+      params: snakeizedParams,
+    });
+    return camelize(activities);
+  } catch (err) {
+    throw (new Error(err.response.data));
+  }
 };
