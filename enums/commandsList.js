@@ -21,4 +21,8 @@ module.exports.commandsList = [
     command: 'register_vehicle',
     description: 'Register a vehicle into the system for tracking WPT/Topups',
   },
+  {
+    command: 'give_feedback',
+    description: 'Give feedback to the developer!',
+  },
 ];
