@@ -1,8 +1,12 @@
 require('dotenv').config();
 
+const http = require('node:http')
+
 const { Bot, session } = require('grammy');
 const { Router } = require('@grammyjs/router');
 const { limit } = require('@grammyjs/ratelimiter');
+const { apiThrottler } = require('@grammyjs/transformer-throttler');
+const { run, sequentialize } = require('@grammyjs/runner');
 
 const { startRoute } = require('./routes/startRoute');
 const { registerVehicleRoute } = require('./routes/registerVehicleRoute');
@@ -19,8 +23,6 @@ const { getUser } = require('./api/getUser');
 
 const { commandsList } = require('./enums/commandsList');
 const { viewMyWptListRoute } = require('./routes/viewMyWptListRoute');
-const { apiThrottler } = require('@grammyjs/transformer-throttler');
-const { run, sequentialize } = require('@grammyjs/runner');
 
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN);
 
@@ -112,6 +114,17 @@ bot.use(router);
 
 const runner = run(bot);
 
-const stopRunner = () => runner.isRunning() && runner.stop();
-process.once("SIGINT", stopRunner);
-process.once("SIGTERM", stopRunner);
+const srvr = http.createServer((_, res) => {
+  res.writeHead(200);
+  res.end(`I'm running!`);
+}).listen(8080);
+
+const stopRunner = async (err) => {
+  await runner.stop();
+  await srvr.close()
+  process.exit(err ? 1: 0)
+}
+process.on("SIGINT", stopRunner);
+process.on("SIGTERM", stopRunner);
+process.on("SIGQUIT", stopRunner);
+
