@@ -158,7 +158,7 @@ const formInteractionTemplateUnlocked = async (ctx, formData) => {
     await ctx.reply(
       verifyPrompt
         ? verifyPrompt()
-        : 'Here are your entries. Select an entry if you want to edit, or submit if  you\'re satisfied',
+        : 'Here are your entries. Select an entry if you want to edit, or submit if you\'re satisfied',
       { reply_markup: responsesButton },
     );
     ctx.session.step = 'verify';
