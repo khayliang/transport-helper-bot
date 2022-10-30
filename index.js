@@ -49,18 +49,29 @@ bot.api.setMyCommands(commandsList);
 
 const router = new Router(async (ctx) => {
   const currentRoute = ctx.session.route;
-  if (!ctx.session.user && currentRoute !== 'create_account') {
-    try {
-      const userData = await getUser(ctx.from.id);
-      if (!userData) {
-        ctx.session.route = 'create_account';
-        return 'create_account';
+  if (!ctx.session.user) {
+    if (currentRoute !== 'create_account') {
+      try {
+        const userData = await getUser(ctx.from.id);
+        if (!userData) {
+          ctx.session.route = 'create_account';
+          return 'create_account';
+        }
+        ctx.session.user = userData;
+      } catch (err) {
+        await ctx.reply(`Whoops! Something seems to have went wrong: ${err.message}`);
       }
-      ctx.session.user = userData;
-    } catch (err) {
-      await ctx.reply(`Whoops! Something seems to have went wrong: ${err.message}`);
+    } else {
+      // prevent access to other routes if account isn't created yet
+      if (ctx.has('msg:entities:bot_command')) {
+        await ctx.reply('Hey! Your account isn\'t created yet. Let\'s go create a new account');
+        await endInteraction(ctx);
+        ctx.session.route = 'create_account';
+      }
+      return currentRoute;
     }
   }
+
   if (ctx.hasCommand('start')) {
     await endInteraction(ctx);
     ctx.session.route = 'start';
