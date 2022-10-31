@@ -17,6 +17,7 @@ jobs:
         - uses: actions/checkout@v2
         - uses: superfly/flyctl-actions/setup-flyctl@master
         - run: |
+            ls &&
             flyctl secrets set TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN && \
             flyctl secrets set API_URL=$API_URL && \
             flyctl deploy \
