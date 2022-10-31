@@ -1,3 +1,7 @@
+const { default: axios } = require('axios');
+
+axios.defaults.headers['X-API-KEY'] = process.env.API_KEY;
+
 const url = process.env.API_URL;
 
 module.exports.api = {
