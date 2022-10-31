@@ -21,4 +21,5 @@ jobs:
             flyctl secrets set API_URL=$API_URL && \
             flyctl deploy \
               -a transport-helper-bot-prod \
-              --remote-only
+              --remote-only \
+              --config ./fly.dev.toml
