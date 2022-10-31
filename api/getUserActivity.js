@@ -13,6 +13,6 @@ module.exports.getUserActivity = async (params) => {
     });
     return camelize(activities);
   } catch (err) {
-    throw (new Error(err.response.data));
+    throw (new Error(JSON.stringify(err.response.data)));
   }
 };

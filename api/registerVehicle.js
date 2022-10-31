@@ -9,6 +9,6 @@ module.exports.registerVehicle = async (vehicleData) => {
     const resp = await axios.post(addr, snakeize(vehicleData));
     return resp;
   } catch (err) {
-    throw (new Error(err.response.data));
+    throw (new Error(JSON.stringify(err.response.data)));
   }
 };

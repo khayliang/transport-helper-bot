@@ -13,6 +13,6 @@ module.exports.getUser = async (userId) => {
     });
     return camelize(data);
   } catch (err) {
-    throw (new Error(err.response.data));
+    throw (new Error(JSON.stringify(err.response.data)));
   }
 };
