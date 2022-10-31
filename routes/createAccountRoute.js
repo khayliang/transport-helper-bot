@@ -27,7 +27,7 @@ const createAccountForm = {
       error: () => 'Whoops! Seems like the NRIC you gave me is invalid. Please try again',
     },
     {
-      key: 'rank',
+      key: 'role',
       title: 'Role',
       type: 'buttons',
       buttons: buildButtonFunction(Object.entries(rolesEnum)),
@@ -39,6 +39,16 @@ const createAccountForm = {
       prompt: () => 'What\'s your role in the node?',
       success: ({ data }) => `Being a ${rolesEnum[data]} sounds fun!`,
       error: ({ data }) => `What is ${data}? I never heard of that role before... Please select a valid role`,
+    },
+    {
+      key: 'rank',
+      title: 'Rank',
+      type: 'string',
+      verify: ({ data }) => /\w{3}/.test(data),
+      process: ({ data }) => data.toUpperCase(),
+      prompt: () => 'What\'s your rank?',
+      success: ({ data }) => `${data}? Wow, very respectable!`,
+      error: () => 'Please enter 3 letters only',
     },
     {
       key: 'army_unit',
@@ -71,7 +81,10 @@ const createAccountForm = {
   },
   onFinish: async (ctx, responses) => {
     try {
-      await createNewUser(responses);
+      await createNewUser({
+        ...responses,
+        telegram_id: ctx.from.id,
+      });
       await ctx.reply('Your account has been created!');
     } catch (err) {
       await ctx.reply(`Oops, something went wrong. ${err.message}`);

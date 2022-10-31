@@ -1,12 +1,12 @@
 # transport-helper-bot
 
-![tracy-the-transport-triangle](./assets/tracy.jpg)
+![tracy-the-transport-turtle](./assets/tracy.jpg)
 
-Tracy the Transport Triangle is a Telegram bot built to assist administrative tasks in the Singapore Armed Forces (SAF) Transport formation.
+Tracy the Transport Turtle is a Telegram bot built to assist administrative tasks in the Singapore Armed Forces (SAF) Transport formation.
 
-You can try out the development version of the bot [here](https://t.me/TracyTheTriangleDevBot).
+You can try out the development version of the bot [here](https://t.me/TracyTheTurtleDevBot).
 
-Tracy the Transport Triangle runs on [grammY](https://grammy.dev/), and is deployed using [railway](railway.app/). She stores her data on AWS, through this [Serverless application](https://github.com/khayliang/transport-helper-server).
+Tracy the Transport Turtle runs on [grammY](https://grammy.dev/), and is deployed using [railway](railway.app/). She stores her data on AWS, through this [Serverless application](https://github.com/khayliang/transport-helper-server).
 
 ## Background
 
@@ -14,7 +14,7 @@ As a transport operator a.k.a driver, one will get a civilian license if they dr
 
 However, recording all of this data is done through a cumbersome hodgepodge of paper records and chain messages over WhatsApp, and time is wasted searching through records for information because everything is all over the place.
 
-Hence, Tracy the Transport Triangle aims to incorporate all current record keeping activity on the cloud, and provide intuitive access to the data.
+Hence, Tracy the Transport Turtle aims to incorporate all current record keeping activity on the cloud, and provide intuitive access to the data.
 
 ## Installation
 

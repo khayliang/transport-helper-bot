@@ -5,6 +5,10 @@ const { api } = require('./api');
 const addr = api.createNewUser;
 
 module.exports.createNewUser = async (userData) => {
-  const resp = await axios.post(addr, snakeize(userData));
-  return resp;
+  try {
+    const resp = await axios.post(addr, snakeize(userData));
+    return resp;
+  } catch (err) {
+    throw (new Error(err.response.data));
+  }
 };

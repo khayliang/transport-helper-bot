@@ -2,14 +2,12 @@ const { default: axios } = require('axios');
 const camelize = require('camelize');
 const { api } = require('./api');
 
-const addr = api.getUser;
+const addr = api.getWptListForNode;
 
-module.exports.getUser = async (userId) => {
+module.exports.getWptListForNode = async ({ node }) => {
   try {
     const { data } = await axios.get(addr, {
-      params: {
-        telegram_id: userId,
-      },
+      params: { node },
     });
     return camelize(data);
   } catch (err) {
