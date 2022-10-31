@@ -9,6 +9,6 @@ module.exports.createNewUser = async (userData) => {
     const resp = await axios.post(addr, snakeize(userData));
     return resp;
   } catch (err) {
-    throw (new Error(err.response.data));
+    throw (new Error(JSON.stringify(err.response.data)));
   }
 };

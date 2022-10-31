@@ -13,6 +13,6 @@ module.exports.getUsersInUnit = async ({ armyUnit }) => {
     });
     return camelize(Items);
   } catch (err) {
-    throw (new Error(err.response.data));
+    throw (new Error(JSON.stringify(err.response.data)));
   }
 };
