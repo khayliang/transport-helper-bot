@@ -28,13 +28,13 @@ const feedbackForm = {
       error: () => 'That doesn\'t seem like a valid car plate. Please enter a valid number e.g 33716',
     },
   ],
-  onFinish: async (ctx, {feedback}) => {
+  onFinish: async (ctx, { feedback }) => {
     try {
       await ctx.reply('Thank you for the feedback!');
-      //TODO: replace hardcoded id with owner acc in database
-      await ctx.api.sendMessage(1021477408, 'You received new feedback!\n' + 
-      `From: ${ctx.session.user.name}\n` +
-      feedback)
+      // TODO: replace hardcoded id with owner acc in database
+      await ctx.api.sendMessage(1021477408, 'You received new feedback!\n'
+      + `From: ${ctx.session.user.name}\n${
+        feedback}`);
     } catch (err) {
       await ctx.reply(`Oops, something went wrong. ${err.message}`);
     }

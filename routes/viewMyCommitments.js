@@ -27,7 +27,7 @@ const getMyCommitments = async () => [
 ];
 
 module.exports.viewMyCommitments = async (ctx) => {
-  try{
+  try {
     const myCommitments = await getMyCommitments();
     let msgToSend = '';
     myCommitments.forEach(({
@@ -43,8 +43,8 @@ module.exports.viewMyCommitments = async (ctx) => {
     });
     await ctx.reply(`${msgToSend}`);
     ctx.session.route = 'start';
-  } catch(err){
-    await ctx.reply(`Error: ${err.message}`)
+  } catch (err) {
+    await ctx.reply(`Error: ${err.message}`);
     ctx.session.route = 'start';
   }
 };
