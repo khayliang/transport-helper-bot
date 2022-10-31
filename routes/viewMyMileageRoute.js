@@ -1,5 +1,11 @@
 module.exports.viewMyMileageRoute = async (ctx) => {
-  const { totalMileage } = ctx.session.user;
-  await ctx.reply(`Your current mileage is: ${totalMileage}`);
-  ctx.session.route = 'start';
+  try{
+    const { totalMileage } = ctx.session.user;
+    await ctx.reply(`Your current mileage is: ${totalMileage}`);
+    ctx.session.route = 'start';
+  } catch(err){
+    await ctx.reply(`Error: ${err.message}`)
+    ctx.session.route = 'start';  
+  }
+
 };

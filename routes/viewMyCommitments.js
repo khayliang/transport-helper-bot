@@ -27,19 +27,24 @@ const getMyCommitments = async () => [
 ];
 
 module.exports.viewMyCommitments = async (ctx) => {
-  const myCommitments = await getMyCommitments();
-  let msgToSend = '';
-  myCommitments.forEach(({
-    commitmentType, startTimestamp, endTimestamp, location, purpose,
-  }, idx) => {
-    const startDate = moment(new Date(startTimestamp));
-    const endDate = moment(new Date(endTimestamp));
-    msgToSend += `${idx}: ${commitmentsEnum[commitmentType]}${location === 'nil' ? '' : `\nLocation: ${location}`}`
-    + `\n ${startDate.format(
-      'DD/MM/YYYY',
-    )}-${endDate.format('DD/MM/YYYY')} (${endDate.diff(startDate)} days)`
-    + `${purpose === 'nil' ? '' : `\n${purpose}`}\n\n`;
-  });
-  await ctx.reply(`${msgToSend}`);
-  ctx.session.route = 'start';
+  try{
+    const myCommitments = await getMyCommitments();
+    let msgToSend = '';
+    myCommitments.forEach(({
+      commitmentType, startTimestamp, endTimestamp, location, purpose,
+    }, idx) => {
+      const startDate = moment(new Date(startTimestamp));
+      const endDate = moment(new Date(endTimestamp));
+      msgToSend += `${idx}: ${commitmentsEnum[commitmentType]}${location === 'nil' ? '' : `\nLocation: ${location}`}`
+      + `\n ${startDate.format(
+        'DD/MM/YYYY',
+      )}-${endDate.format('DD/MM/YYYY')} (${endDate.diff(startDate)} days)`
+      + `${purpose === 'nil' ? '' : `\n${purpose}`}\n\n`;
+    });
+    await ctx.reply(`${msgToSend}`);
+    ctx.session.route = 'start';
+  } catch(err){
+    await ctx.reply(`Error: ${err.message}`)
+    ctx.session.route = 'start';
+  }
 };
