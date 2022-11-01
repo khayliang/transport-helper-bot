@@ -1,28 +1,28 @@
 module.exports.commandsList = [
-  { command: 'start', description: 'Start the bot' },
-  { command: 'view_my_mileage', description: 'View your current mileage' },
+  { command: 'start', description: 'Start' },
+  { command: 'view_my_mileage', description: 'My mileage' },
   {
     command: 'view_my_activities',
-    description: 'View your activities for a month',
+    description: 'Monthly activities',
   },
   {
     command: 'view_personnel_mileage',
-    description: 'View the mileage of everyone in  your node',
+    description: 'Everyone\'s Mileage',
   },
   {
     command: 'add_activity',
-    description: 'Add a new vehicle activity e.g detail, WPT',
+    description: 'New activity',
   },
   {
     command: 'view_my_wpt_list',
-    description: 'Generate list of vehicles that require WPT',
+    description: 'WPT list',
   },
   {
     command: 'register_vehicle',
-    description: 'Register a vehicle into the system for tracking WPT/Topups',
+    description: 'Register vehicle',
   },
   {
     command: 'give_feedback',
-    description: 'Give feedback to the developer!',
+    description: 'Complain',
   },
 ];
