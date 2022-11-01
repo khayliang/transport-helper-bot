@@ -81,7 +81,7 @@ const createAccountForm = {
       prompt: () => 'What\'s the password?',
       success: () => `Access granted`,
       error: () => 'Wrong password. Try again',
-      display()=> "HIDDEN"
+      display: () => "HIDDEN"
     },
   ],
   onStart: async (ctx) => {
