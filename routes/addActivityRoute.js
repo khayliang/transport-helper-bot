@@ -52,7 +52,7 @@ const addActivityForm = {
       key: 'timestamp',
       title: 'Time of activity',
       type: 'buttons',
-      buttons: buildButtonFunction([[moment(new Date()).format('DD/MM/YYYY'), 'Today']]),
+      buttons: () => buildButtonFunction([[moment(new Date()).format('DD/MM/YYYY'), 'Today']]),
       process: ({ data }) => {
         if (!isValidDate(data)) throw Error('Invalid date format');
         const lastActivity = moment(data, 'DD/MM/YYYY').toDate();
