@@ -78,19 +78,19 @@ const registerVehicleForm = {
       type: 'number',
       process: ({ data }) => {
         if (!isValidDate(data)) throw Error('Invalid date format');
-        const lastActivity = moment(data, 'DD/MM/YYYY').toDate();
+        const lastActivity = moment(data, 'DDMMYY').toDate();
 
         if (lastActivity.getTime() > Date.now()) throw Error('date is in the future');
         return lastActivity.getTime();
       },
       verify: () => true,
       display: ({ data }) => `${new Date(data).toDateString()}`,
-      prompt: () => 'What is date of the last vehicle activity? Enter in format DD/MM/YYYY',
+      prompt: () => 'What is date of the last vehicle activity? Enter in format DDMMYY',
       success: ({ data }) => {
         const date = new Date(data);
         return `${date.toDateString()} seems to be the date.`;
       },
-      error: () => 'Please enter a valid date. Enter in format DD/MM/YYYY',
+      error: () => 'Please enter a valid date. Enter in format DDMMYY',
     },
     {
       key: 'last_activity_type',
