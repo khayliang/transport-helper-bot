@@ -52,21 +52,21 @@ const addActivityForm = {
       key: 'timestamp',
       title: 'Time of activity',
       type: 'buttons',
-      buttons: () => (buildButtonFunction([[moment(new Date()).format('DD/MM/YYYY'), 'Today']])()),
+      buttons: () => (buildButtonFunction([[moment(new Date()).format('DDMMYY'), 'Today']])()),
       process: ({ data }) => {
         if (!isValidDate(data)) throw Error('Invalid date format');
-        const lastActivity = moment(data, 'DD/MM/YYYY').toDate();
+        const lastActivity = moment(data, 'DDMMMYY').toDate();
         if (lastActivity.getTime() > Date.now()) throw Error('date is in the future');
         return lastActivity.getTime();
       },
       verify: () => true,
       display: ({ data }) => `${new Date(data).toDateString()}`,
-      prompt: () => 'What is date of the activity?\nType the date in the format DD/MM/YYYY, or press \'Today\'',
+      prompt: () => 'What is date of the activity?\nType the date in the format DDMMYY, or press \'Today\'',
       success: ({ data }) => {
         const date = new Date(data);
         return `${date.toDateString()} seems to be the date.`;
       },
-      error: () => 'Please enter a valid date. Enter in format DD/MM/YYYY or select the \'Today\' button',
+      error: () => 'Please enter a valid date. Enter in format DDMMYY or select the \'Today\' button',
     },
     {
       key: 'initial_mileage',
