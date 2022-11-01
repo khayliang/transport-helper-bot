@@ -52,7 +52,7 @@ const addActivityForm = {
       key: 'timestamp',
       title: 'Time of activity',
       type: 'buttons',
-      buttons: () => null,
+      buttons: () => (buildButtonFunction([[moment(new Date()).format('DD/MM/YYYY'), 'Today']])()),
       process: ({ data }) => {
         if (!isValidDate(data)) throw Error('Invalid date format');
         const lastActivity = moment(data, 'DD/MM/YYYY').toDate();
@@ -61,7 +61,7 @@ const addActivityForm = {
       },
       verify: () => true,
       display: ({ data }) => `${new Date(data).toDateString()}`,
-      prompt: () => 'What is date of the activity?\nType the date in the format DD/MM/YYYY',
+      prompt: () => 'What is date of the activity?\nType the date in the format DD/MM/YYYY, or press \'Today\'',
       success: ({ data }) => {
         const date = new Date(data);
         return `${date.toDateString()} seems to be the date.`;
