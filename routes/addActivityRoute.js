@@ -55,7 +55,7 @@ const addActivityForm = {
       buttons: () => (buildButtonFunction([[moment(new Date()).format('DDMMYY'), 'Today']])()),
       process: ({ data }) => {
         if (!isValidDate(data)) throw Error('Invalid date format');
-        const lastActivity = moment(data, 'DDMMMYY').toDate();
+        const lastActivity = moment(data, 'DDMMYY').toDate();
         if (lastActivity.getTime() > Date.now()) throw Error('date is in the future');
         return lastActivity.getTime();
       },
