@@ -73,6 +73,16 @@ const createAccountForm = {
       success: () => 'Wow, you\'ve been hard at work...',
       error: () => 'That doesn\'t seem like a number. Please enter a valid mileage',
     },
+    {
+      key: 'passcode',
+      title: 'Passcode',
+      type: 'string',
+      verify: ({ data }) => data === process.env.BEDOK_PASSCODE,
+      prompt: () => 'What\'s the password?',
+      success: () => `Access granted`,
+      error: () => 'Wrong password. Try again',
+      display()=> "HIDDEN"
+    },
   ],
   onStart: async (ctx) => {
     await ctx.reply(
