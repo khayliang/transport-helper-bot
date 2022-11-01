@@ -92,6 +92,7 @@ const addActivityForm = {
   ],
   onFinish: async (ctx, responses) => {
     try {
+      console.log({...responses, telegram_id: ctx.from.id})
       await createNewActivity({
         ...responses,
         telegram_id: ctx.from.id,
