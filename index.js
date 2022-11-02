@@ -19,6 +19,7 @@ const {
   viewPersonnelMileageRoute,
 } = require('./routes/viewPersonnelMileageRoute');
 const { feedbackRoute } = require('./routes/feedbackRoute');
+const { getVehicleRoute } = require('./routes/getVehicleRoute');
 
 const { getUser } = require('./api/getUser');
 
@@ -104,12 +105,16 @@ const router = new Router(async (ctx) => {
     await endInteraction(ctx);
     ctx.session.route = 'view_my_wpt_list';
     return 'view_my_wpt_list';
-  }
-  if (ctx.hasCommand('give_feedback')) {
+  } if (ctx.hasCommand('give_feedback')) {
     await endInteraction(ctx);
     ctx.session.route = 'give_feedback';
     return 'give_feedback';
+  } if (ctx.hasCommand('get_vehicle')) {
+    await endInteraction(ctx);
+    ctx.session.route = 'get_vehicle';
+    return 'get_vehicle';
   }
+ 
   return currentRoute;
 });
 
@@ -122,6 +127,7 @@ router.route('view_my_activities', viewMyActivitiesRoute);
 router.route('view_personnel_mileage', viewPersonnelMileageRoute);
 router.route('view_my_wpt_list', viewMyWptListRoute);
 router.route('give_feedback', feedbackRoute);
+router.route('get_vehicle', getVehicleRoute);
 
 router.otherwise(async (ctx) => {
   ctx.session.route = 'start';
