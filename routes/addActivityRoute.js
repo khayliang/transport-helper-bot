@@ -15,7 +15,7 @@ const addActivityForm = {
       key: 'vehicle_no',
       title: 'Car plate number',
       type: 'number',
-      verify: () => true,
+      verify: ({ data }) => `${data}`.length === 5,
       prompt: () => 'What\'s the vehicle car plate?',
       success: ({ data }) => `Your vehicle is ${data}.`,
       error: () => 'That doesn\'t seem like a valid car plate. Please enter a valid number e.g 33716',
