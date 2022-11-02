@@ -14,7 +14,7 @@ const getVehicleForm = {
       title: 'Vehicle no',
       type: 'number',
       verify: ({ data }) => {
-        if `${data}`.length === 5 return true;
+        if (`${data}`.length === 5) return true;
         return false;
       },
       prompt: () => 'What vehicle do you want to view?',
