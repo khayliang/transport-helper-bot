@@ -34,6 +34,6 @@ const getVehicleForm = {
     }
   },
 };
-module.exports.viewMyActivitiesRoute = async (ctx) => {
-  formInteractionTemplate(ctx, viewMyActivitiesForm);
+module.exports.getVehicleRoute = async (ctx) => {
+  formInteractionTemplate(ctx, getVehicleForm);
 };
