@@ -23,11 +23,9 @@ const getVehicleForm = {
     },
   ],
   verifyPrompt: () => "Select an entry if you want to edit, or submit if you're ready.",
-  onFinish: async (ctx, responses) => {
+  onFinish: async (ctx, { vehicle_no }) => {
     try {
-      const vehicleData = await getVehicle({
-        ...responses,
-      });
+      const vehicleData = await getVehicle(vehicle_no);
       await ctx.reply(`Raw vehicle data: \n\n${JSON.stringify(vehicleData)}`);
     } catch (err) {
       await ctx.reply(`Oops, something went wrong. ${err.message}`);
