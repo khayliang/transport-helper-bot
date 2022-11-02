@@ -12,7 +12,19 @@ module.exports.modelsEnum = {
     class: 4,
   },
   combat_amby: {
-    name: 'Combat Ambulance',
+    name: 'F550',
     class: 4,
   },
+  muv: {
+    name: 'Ambulance',
+    class: 4
+  },
+  six_ton: {
+    name: 'Six Tonner',
+    class: 4
+  },
+  gp_car: {
+    name: 'GP Car',
+    class: 3
+  }
 };
