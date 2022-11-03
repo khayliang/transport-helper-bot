@@ -25,4 +25,8 @@ module.exports.commandsList = [
     command: 'give_feedback',
     description: 'Complain',
   },
+  {
+    command: 'get_vehicle',
+    description: 'Get vehicle data',
+  },
 ];
