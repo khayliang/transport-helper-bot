@@ -92,52 +92,22 @@ const router = new Router(async (ctx) => {
       return currentRoute;
     }
   }
-
-  if (ctx.hasCommand('start')) {
+  const changeRoute = async (route) => {
     await endInteraction(ctx);
-    ctx.session.route = 'start';
-    return 'start';
-  } if (ctx.hasCommand('create_account')) {
-    await endInteraction(ctx);
-    ctx.session.route = 'create_account';
-    return 'create_account';
-  } if (ctx.hasCommand('register_vehicle')) {
-    await endInteraction(ctx);
-    ctx.session.route = 'register_vehicle';
-    return 'register_vehicle';
-  } if (ctx.hasCommand('view_my_mileage')) {
-    await endInteraction(ctx);
-    ctx.session.route = 'view_my_mileage';
-    return 'view_my_mileage';
-  } if (ctx.hasCommand('view_my_activities')) {
-    await endInteraction(ctx);
-    ctx.session.route = 'view_my_activities';
-    return 'view_my_activities';
-  } if (ctx.hasCommand('view_personnel_mileage')) {
-    await endInteraction(ctx);
-    ctx.session.route = 'view_personnel_mileage';
-    return 'view_personnel_mileage';
-  } if (ctx.hasCommand('add_activity')) {
-    await endInteraction(ctx);
-    ctx.session.route = 'add_activity';
-    return 'add_activity';
-  } if (ctx.hasCommand('view_my_wpt_list')) {
-    await endInteraction(ctx);
-    ctx.session.route = 'view_my_wpt_list';
-    return 'view_my_wpt_list';
-  } if (ctx.hasCommand('give_feedback')) {
-    await endInteraction(ctx);
-    ctx.session.route = 'give_feedback';
-    return 'give_feedback';
-  } if (ctx.hasCommand('get_vehicle')) {
-    await endInteraction(ctx);
-    ctx.session.route = 'get_vehicle';
-    return 'get_vehicle';
-  } if (ctx.hasCommand('add_mileage_msg')) {
-    await endInteraction(ctx);
-    ctx.session.route = 'add_mileage_msg';
-    return 'add_mileage_msg';
-  }
+    ctx.session.route = route;
+    return route;
+  };
+  if (ctx.hasCommand('start')) return changeRoute('start');
+  if (ctx.hasCommand('create_account')) return changeRoute('create_account');
+  if (ctx.hasCommand('register_vehicle')) return changeRoute('register_vehicle');
+  if (ctx.hasCommand('view_my_mileage')) return changeRoute('view_my_mileage');
+  if (ctx.hasCommand('view_my_activities')) return changeRoute('view_my_activities');
+  if (ctx.hasCommand('view_personnel_mileage')) return changeRoute('view_personnel_mileage');
+  if (ctx.hasCommand('add_activity')) return changeRoute('add_activity');
+  if (ctx.hasCommand('view_my_wpt_list')) return changeRoute('view_my_wpt_list');
+  if (ctx.hasCommand('give_feedback')) return changeRoute('give_feedback');
+  if (ctx.hasCommand('get_vehicle')) return changeRoute('get_vehicle');
+  if (ctx.hasCommand('add_mileage_msg')) return changeRoute('add_mileage_msg');
 
   return currentRoute;
 });
