@@ -32,7 +32,6 @@ const { getUser } = require('./api/getUser');
 
 const { commandsList } = require('./enums/commandsList');
 const { viewMyWptListRoute } = require('./routes/viewMyWptListRoute');
-const { getUpdateMsgConvo } = require('./conversations/getUpdateMsgConvo');
 
 moment.tz.setDefault('Asia/Singapore');
 
