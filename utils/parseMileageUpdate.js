@@ -1,3 +1,4 @@
+/* eslint no-restricted-globals: 0 */
 const moment = require('moment-timezone');
 
 const parseValues = [

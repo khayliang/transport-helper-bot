@@ -98,7 +98,7 @@ Pol Odo: nil`;
 
 test('invalid vehicle number throws error', async () => {
   expect(() => {
-    console.log(parseMileageUpdate(invalidVehicleNo));
+    parseMileageUpdate(invalidVehicleNo);
   }).toThrow();
 });
 
