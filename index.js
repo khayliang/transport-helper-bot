@@ -52,7 +52,7 @@ bot.use(
     }),
   }),
 );
-bot.use(limit({ timeFrame: 2000 }));
+bot.use(limit({ timeFrame: 1000 }));
 
 bot.api.config.use(apiThrottler());
 
