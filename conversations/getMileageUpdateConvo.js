@@ -21,9 +21,8 @@ module.exports.getMileageUpdateConvo = async (conversation, ctx) => {
     newCtx.session.step = 'endconvo';
     await addMileageUpdateRoute(newCtx);
   } catch (err) {
-    await ctx.reply('Figure out the formatting mistake and try again.'
-    + 'Ensure that your message is in the following format:\n\n'
-    + 'Rank / Name : LCP TAN WEI JIE\n'
+    await ctx.reply('Ensure that your message is in the following format and sequence\n\n'
+    + 'Rank / Name: LCP TAN WEI JIE\n'
     + 'Mask NRIC: TXXXX123A\n'
     + 'Purpose: detail\n'
     + 'Vehicle No: 12345\n'
@@ -35,7 +34,7 @@ module.exports.getMileageUpdateConvo = async (conversation, ctx) => {
     + 'Date/Time end: 181122/1635\n'
     + 'End Odo: 12350\n'
     + 'Pol Amt: nil\n'
-    + 'Pol Odo: nil');
+    + 'Pol Odo: nil', { parse_mode: 'HTML' });
     throw Error(err.message);
   }
 };

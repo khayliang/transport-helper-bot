@@ -73,14 +73,13 @@ const parseValues = [
 ];
 
 module.exports.parseMileageUpdate = (msg) => {
-  const valuesArr = msg.toLowerCase().split(/\r?\n/).map(((str) => str.split(': ')[1])).slice(2);
-  // console.log(valuesArr)
+  const valuesArr = msg.toLowerCase().split(/\r?\n/).map(((str) => str.split(':')[1])).slice(2);
+  if (valuesArr.length < 11) throw Error('Missing values in the message!');
   const activityObj = {};
   valuesArr.forEach((val, idx) => {
     const { key, parse = (x) => x } = parseValues[idx];
-    activityObj[key] = parse(val);
+    activityObj[key] = parse(val.trim());
   });
-  // console.log(activityObj)
 
   return activityObj;
 };
