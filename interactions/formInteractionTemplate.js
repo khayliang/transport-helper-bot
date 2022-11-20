@@ -48,11 +48,12 @@ const formInteractionTemplateUnlocked = async (ctx, formData) => {
         const dataKey = entries[msg].key;
         ctx.session.data[dataKey] = null;
         ctx.session.step = idx;
-        await sendPrompt(ctx, formData);
       } catch (err) {
         await ctx.reply(`${err.message}`);
       }
     }
+  } else if (step === 'endconvo') {
+    ctx.session.step = 0;
   } else {
     const {
       type, verify, success, error, process, key: dataKey,
@@ -78,6 +79,8 @@ const formInteractionTemplateUnlocked = async (ctx, formData) => {
   }
 
   // The following part of the code handles the prompt to send after processing the response
+  if (ctx.session.step === 'convo') return;
+
   // this while loop checks for the next empty entry in data
   while (ctx.session.step < entries.length) {
     if (!ctx.session.data[entries[ctx.session.step].key]) break;

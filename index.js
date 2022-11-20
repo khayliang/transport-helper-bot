@@ -12,8 +12,7 @@ const { run, sequentialize } = require('@grammyjs/runner');
 const {
   conversations,
   createConversation,
-} = require("@grammyjs/conversations");
-
+} = require('@grammyjs/conversations');
 
 const { startRoute } = require('./routes/startRoute');
 const { registerVehicleRoute } = require('./routes/registerVehicleRoute');
@@ -32,6 +31,8 @@ const { getUser } = require('./api/getUser');
 
 const { commandsList } = require('./enums/commandsList');
 const { viewMyWptListRoute } = require('./routes/viewMyWptListRoute');
+const { getMileageUpdateConvo } = require('./conversations/getMileageUpdateConvo');
+const { addMileageUpdateRoute } = require('./routes/addMileageUpdateRoute');
 
 moment.tz.setDefault('Asia/Singapore');
 
@@ -58,7 +59,7 @@ bot.api.config.use(apiThrottler());
 bot.api.setMyCommands(commandsList);
 
 bot.use(conversations());
-//bot.use(createConversation(getUpdateMsgConvo));
+bot.use(createConversation(getMileageUpdateConvo, 'getMileageUpdateConvo'));
 
 const router = new Router(async (ctx) => {
   const currentRoute = ctx.session.route;
@@ -125,6 +126,10 @@ const router = new Router(async (ctx) => {
     await endInteraction(ctx);
     ctx.session.route = 'get_vehicle';
     return 'get_vehicle';
+  } if (ctx.hasCommand('add_mileage_msg')) {
+    await endInteraction(ctx);
+    ctx.session.route = 'add_mileage_msg';
+    return 'add_mileage_msg';
   }
 
   return currentRoute;
@@ -140,6 +145,7 @@ router.route('view_personnel_mileage', viewPersonnelMileageRoute);
 router.route('view_my_wpt_list', viewMyWptListRoute);
 router.route('give_feedback', feedbackRoute);
 router.route('get_vehicle', getVehicleRoute);
+router.route('add_mileage_msg', addMileageUpdateRoute);
 
 router.otherwise(async (ctx) => {
   ctx.session.route = 'start';

@@ -29,4 +29,8 @@ module.exports.commandsList = [
     command: 'get_vehicle',
     description: 'Get vehicle data',
   },
+  {
+    command: 'add_mileage_msg',
+    description: 'Submit mileage update',
+  },
 ];
