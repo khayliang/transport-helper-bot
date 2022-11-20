@@ -27,9 +27,6 @@ const stringTestCtx = {
     data: {},
     user: {},
   },
-  callbackQuery: {
-    data: 'data',
-  },
   from: {
     id: 1234,
   },

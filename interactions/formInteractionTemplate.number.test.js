@@ -27,9 +27,6 @@ const numberTestCtx = {
     data: {},
     user: {},
   },
-  callbackQuery: {
-    data: 'data',
-  },
   from: {
     id: 1234,
   },
@@ -55,7 +52,7 @@ test('For number type entry, if verify is false, error function is called and re
   const numberEntry = entries[0];
   await formInteractionTemplate(numberTestCtx, numberTestForm);
   expect(numberEntry.error.mock.calls).toHaveLength(1);
-  expect(numberEntry.error.mock.calls[0][0]).toEqual({ ctx: numberTestCtx, data: '3' });
+  expect(numberEntry.error.mock.calls[0][0]).toEqual({ ctx: numberTestCtx, data: 3 });
 });
 
 test('For number type entry, if verify function is false, prompt is sent again', async () => {
@@ -88,9 +85,6 @@ test('For number type entry, if data isnt a number, error function is called', a
       data: {},
       user: {},
     },
-    callbackQuery: {
-      data: 'data',
-    },
     from: {
       id: 1234,
     },
@@ -102,5 +96,4 @@ test('For number type entry, if data isnt a number, error function is called', a
   const numberEntry = entries[0];
   await formInteractionTemplate(wrongNumberTestCtx, workingNumberTestForm);
   expect(numberEntry.error.mock.calls).toHaveLength(1);
-  expect(numberEntry.error.mock.calls[0][0]).toEqual({ ctx: wrongNumberTestCtx, data: 'text' });
 });
