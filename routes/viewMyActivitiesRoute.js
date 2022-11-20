@@ -1,6 +1,6 @@
 const { InlineKeyboard } = require('grammy');
 const _ = require('lodash');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const { getUserActivity } = require('../api/getUserActivity');
 const { monthsEnum } = require('../enums/monthsEnum');

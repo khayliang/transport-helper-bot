@@ -2,13 +2,18 @@ require('dotenv').config();
 
 const http = require('node:http');
 
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const { Bot, session } = require('grammy');
 const { Router } = require('@grammyjs/router');
 const { limit } = require('@grammyjs/ratelimiter');
 const { apiThrottler } = require('@grammyjs/transformer-throttler');
 const { run, sequentialize } = require('@grammyjs/runner');
+const {
+  conversations,
+  createConversation,
+} = require("@grammyjs/conversations");
+
 
 const { startRoute } = require('./routes/startRoute');
 const { registerVehicleRoute } = require('./routes/registerVehicleRoute');
@@ -27,6 +32,7 @@ const { getUser } = require('./api/getUser');
 
 const { commandsList } = require('./enums/commandsList');
 const { viewMyWptListRoute } = require('./routes/viewMyWptListRoute');
+const { getUpdateMsgConvo } = require('./conversations/getUpdateMsgConvo');
 
 moment.tz.setDefault('Asia/Singapore');
 
@@ -51,6 +57,9 @@ bot.use(limit({ timeFrame: 2000 }));
 bot.api.config.use(apiThrottler());
 
 bot.api.setMyCommands(commandsList);
+
+bot.use(conversations());
+//bot.use(createConversation(getUpdateMsgConvo));
 
 const router = new Router(async (ctx) => {
   const currentRoute = ctx.session.route;
