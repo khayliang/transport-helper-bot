@@ -1,5 +1,3 @@
-const { startRoute } = require('../routes/startRoute');
-
 module.exports.endInteraction = async (ctx) => {
   // end method
   // function to handle end of interaction
@@ -7,5 +5,4 @@ module.exports.endInteraction = async (ctx) => {
   ctx.session.route = 'start';
   ctx.session.data = {};
   ctx.session.step = 'idle';
-  await startRoute(ctx);
 };
