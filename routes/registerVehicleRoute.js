@@ -97,7 +97,11 @@ const registerVehicleForm = {
   ],
   onFinish: async (ctx, responses) => {
     try {
-      await registerVehicle(responses);
+      const {model} = responses
+      await registerVehicle({
+        ...responses,
+        vehicleClass: modelsEnum[model].class
+      });
       await ctx.reply('Vehicle has been added!');
     } catch (err) {
       await ctx.reply(`Oops, something went wrong. ${err.message}`);
