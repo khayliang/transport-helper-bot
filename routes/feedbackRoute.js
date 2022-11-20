@@ -1,3 +1,4 @@
+const { endInteraction } = require('../interactions/endInteraction');
 const {
   formInteractionTemplate,
 } = require('../interactions/formInteractionTemplate');
@@ -9,9 +10,10 @@ const feedbackForm = {
       key: 'problem',
       title: 'Got a problem?',
       type: 'buttons',
-      buttons: buildButtonFunction(Object.entries({ yes: 'Yes', no: 'No' })),
-      verify: ({ data }) => {
+      buttons: buildButtonFunction(Object.entries({ yes: 'Yes', no: 'No', exit: 'Let me out' })),
+      verify: ({ data, ctx }) => {
         if (data === 'no') return false;
+        if (data === 'exit') endInteraction(ctx);
         return true;
       },
       prompt: () => 'You got problem with me is it?',
