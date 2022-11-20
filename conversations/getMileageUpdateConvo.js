@@ -21,6 +21,21 @@ module.exports.getMileageUpdateConvo = async (conversation, ctx) => {
     newCtx.session.step = 'endconvo';
     await addMileageUpdateRoute(newCtx);
   } catch (err) {
-    await ctx.reply(err.message);
+    await ctx.reply('Figure out the formatting mistake and try again.'
+    + 'Ensure that your message is in the following format:\n\n'
+    + 'Rank / Name : LCP TAN WEI JIE\n'
+    + 'Mask NRIC: TXXXX123A\n'
+    + 'Purpose: detail\n'
+    + 'Vehicle No: 12345\n'
+    + 'IVC working: Yes\n'
+    + 'Starting destination: Bedok Camp\n'
+    + 'Date/Time start: 181122/0415\n'
+    + 'Start Odo: 12345\n'
+    + 'End destination: Bedok Camp\n'
+    + 'Date/Time end: 181122/1635\n'
+    + 'End Odo: 12350\n'
+    + 'Pol Amt: nil\n'
+    + 'Pol Odo: nil');
+    throw Error(err.message);
   }
 };

@@ -61,6 +61,13 @@ bot.api.setMyCommands(commandsList);
 bot.use(conversations());
 bot.use(createConversation(getMileageUpdateConvo, 'getMileageUpdateConvo'));
 
+bot.catch(async (err) => {
+  const { ctx } = err;
+  await ctx.reply(err.message);
+  await endInteraction(ctx);
+  await startRoute(ctx);
+});
+
 const router = new Router(async (ctx) => {
   const currentRoute = ctx.session.route;
   if (!ctx.session.user) {

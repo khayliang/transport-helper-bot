@@ -8,6 +8,7 @@ const { activitiesEnum } = require('../enums/activitiesEnum');
 const { createNewActivity } = require('../api/createNewActivity');
 const { isValidDate } = require('../utils/isValidDate');
 const { buildButtonFunction } = require('../utils/buildButtonFunction');
+const { endInteraction } = require('../interactions/endInteraction');
 
 const addMileageUpdateForm = {
   entries: [
@@ -91,8 +92,12 @@ const addMileageUpdateForm = {
     },
   ],
   onStart: async (ctx) => {
-    ctx.session.step = 'convo';
-    await ctx.conversation.enter('getMileageUpdateConvo');
+    try {
+      ctx.session.step = 'convo';
+      await ctx.conversation.enter('getMileageUpdateConvo');
+    } catch (err) {
+      await endInteraction(ctx);
+    }
   },
   onFinish: async (ctx, responses) => {
     try {

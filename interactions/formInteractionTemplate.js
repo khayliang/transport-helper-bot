@@ -21,7 +21,11 @@ const formInteractionTemplateUnlocked = async (ctx, formData) => {
   if (step === 'idle') {
     ctx.session.step = 0;
     const { onStart } = formData;
-    if (onStart) await onStart(ctx);
+    try {
+      if (onStart) await onStart(ctx);
+    } catch (err) {
+      return;
+    }
   } else if (step === 'verify') {
     const msg = ctx.callbackQuery.data;
     if (msg === 'submit') {
@@ -79,6 +83,7 @@ const formInteractionTemplateUnlocked = async (ctx, formData) => {
   }
 
   // The following part of the code handles the prompt to send after processing the response
+  // dont send a prompt if currently having conversation
   if (ctx.session.step === 'convo') return;
 
   // this while loop checks for the next empty entry in data
