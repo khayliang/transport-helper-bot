@@ -85,7 +85,7 @@ test('invalid time format throws error', async () => {
 const invalidVehicleNo = `Rank / Name : 3SG BRYAN
 Mask NRIC: TXXXX012A
 Purpose: SHIFT VEHICLE
-Vehicle No: 1a344
+Vehicle No: 1aa44
 IVC working: no
 Starting destination: Bedok Camp
 Date/Time start: 181122/1635
@@ -98,7 +98,7 @@ Pol Odo: nil`;
 
 test('invalid vehicle number throws error', async () => {
   expect(() => {
-    parseMileageUpdate(invalidVehicleNo);
+    console.log(parseMileageUpdate(invalidVehicleNo));
   }).toThrow();
 });
 

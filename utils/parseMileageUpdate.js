@@ -7,7 +7,7 @@ const parseValues = [
   {
     key: 'vehicleNo',
     parse: (val) => {
-      if (Number.isNaN(val)) throw Error('invalid vehicle no');
+      if (isNaN(val)) throw Error('invalid vehicle no');
       else return parseInt(val, 10);
     },
   },
@@ -30,7 +30,7 @@ const parseValues = [
   {
     key: 'initialMileage',
     parse: (val) => {
-      if (Number.isNaN(val)) throw Error('invalid starting odometer');
+      if (isNaN(val)) throw Error('invalid starting odometer');
       else return parseInt(val, 10);
     },
   },
@@ -49,7 +49,7 @@ const parseValues = [
   {
     key: 'finalMileage',
     parse: (val) => {
-      if (Number.isNaN(val)) throw Error('invalid end odometer');
+      if (isNaN(val)) throw Error('invalid end odometer');
       else return parseInt(val, 10);
     },
   },
@@ -57,7 +57,7 @@ const parseValues = [
     key: 'polAmt',
     parse: (val) => {
       if (val === 'nil') return 0;
-      if (Number.isNaN(val)) throw Error('invalid pol amount');
+      if (isNaN(val)) throw Error('invalid pol amount');
       else return parseInt(val, 10);
     },
   },
@@ -65,7 +65,7 @@ const parseValues = [
     key: 'polOdo',
     parse: (val) => {
       if (val === 'nil') return 0;
-      if (Number.isNaN(val)) throw Error('invalid pol odometer');
+      if (isNaN(val)) throw Error('invalid pol odometer');
       else return parseInt(val, 10);
     },
   },
