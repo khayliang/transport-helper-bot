@@ -6,7 +6,6 @@ module.exports.viewPersonnelMileageRoute = async (ctx) => {
   try {
     const users = await getUsersInUnit({ armyUnit });
     users.sort((a,b) => b.totalMileage - a.totalMileage)
-    console.log(users[0])
     let msg = `Mileage for ${nodesEnum[armyUnit]}:\n`;
     users.forEach(({ name, totalMileage }) => {
       msg += `${name}: ${totalMileage}\n`;
