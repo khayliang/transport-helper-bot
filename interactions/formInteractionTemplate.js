@@ -72,7 +72,7 @@ const formInteractionTemplateUnlocked = async (ctx, formData) => {
         if (!msg) throw Error('Give me a number!');
       }
       if (verify({ data: msg, ctx })) {
-        await ctx.reply(success({ ctx, data: msg }));
+        if (success) await ctx.reply(success({ ctx, data: msg }));
         ctx.session.data[dataKey] = msg;
       } else {
         ctx.reply(error({ ctx, data: msg }));
