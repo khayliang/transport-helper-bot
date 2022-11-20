@@ -3,5 +3,5 @@ module.exports.nodesEnum = {
   slg: 'Selarang Node',
   neesoon: 'Nee Soon Node',
   tekong: 'Tekong Node',
-  seletar: 'Seletar Node'
+  seletar: 'Seletar Node',
 };

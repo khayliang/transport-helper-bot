@@ -79,9 +79,9 @@ const createAccountForm = {
       type: 'string',
       verify: ({ data }) => data === process.env.BEDOK_PASSCODE,
       prompt: () => 'What\'s the password?',
-      success: () => `Access granted`,
+      success: () => 'Access granted',
       error: () => 'Wrong password. Try again',
-      display: () => "HIDDEN"
+      display: () => 'HIDDEN',
     },
   ],
   onStart: async (ctx) => {

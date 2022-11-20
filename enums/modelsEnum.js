@@ -17,14 +17,14 @@ module.exports.modelsEnum = {
   },
   muv: {
     name: 'Ambulance',
-    class: 4
+    class: 4,
   },
   six_ton: {
     name: 'Six Tonner',
-    class: 4
+    class: 4,
   },
   gp_car: {
     name: 'GP Car',
-    class: 3
-  }
+    class: 3,
+  },
 };

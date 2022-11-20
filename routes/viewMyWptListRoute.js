@@ -16,7 +16,7 @@ module.exports.viewMyWptListRoute = async (ctx) => {
     node.wpt2.forEach(({ vehicleNo }) => {
       msg += `${vehicleNo}\n`;
     });
-/*
+
     msg += '\nWPT for unregistered vehicles\n';
     msg += 'WPT 1: \n';
     unregistered.wpt1.forEach(({ vehicleNo }) => {
@@ -26,7 +26,6 @@ module.exports.viewMyWptListRoute = async (ctx) => {
     unregistered.wpt2.forEach(({ vehicleNo }) => {
       msg += `${vehicleNo}\n`;
     });
-*/
     await ctx.reply(msg);
   } catch (err) {
     await ctx.reply(err.message);

@@ -25,6 +25,7 @@
     "grammy": "^1.11.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.39",
     "snakeize": "^0.1.0",
     "yup": "^0.32.11"
   },

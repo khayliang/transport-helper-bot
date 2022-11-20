@@ -2,6 +2,8 @@ require('dotenv').config();
 
 const http = require('node:http');
 
+const moment = require('moment');
+
 const { Bot, session } = require('grammy');
 const { Router } = require('@grammyjs/router');
 const { limit } = require('@grammyjs/ratelimiter');
@@ -25,6 +27,8 @@ const { getUser } = require('./api/getUser');
 
 const { commandsList } = require('./enums/commandsList');
 const { viewMyWptListRoute } = require('./routes/viewMyWptListRoute');
+
+moment.tz.setDefault('Asia/Singapore');
 
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN);
 
@@ -114,7 +118,7 @@ const router = new Router(async (ctx) => {
     ctx.session.route = 'get_vehicle';
     return 'get_vehicle';
   }
- 
+
   return currentRoute;
 });
 

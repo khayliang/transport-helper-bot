@@ -1,6 +1,3 @@
-const _ = require('lodash');
-const moment = require('moment');
-
 const { getVehicle } = require('../api/getVehicle');
 
 const {
@@ -10,7 +7,7 @@ const {
 const getVehicleForm = {
   entries: [
     {
-      key: 'vehicle_no',
+      key: 'vehicleNo',
       title: 'Vehicle no',
       type: 'number',
       verify: ({ data }) => {
@@ -23,9 +20,9 @@ const getVehicleForm = {
     },
   ],
   verifyPrompt: () => "Select an entry if you want to edit, or submit if you're ready.",
-  onFinish: async (ctx, { vehicle_no }) => {
+  onFinish: async (ctx, { vehicleNo }) => {
     try {
-      const vehicleData = await getVehicle(vehicle_no);
+      const vehicleData = await getVehicle(vehicleNo);
       await ctx.reply(`Raw vehicle data: \n\n${JSON.stringify(vehicleData)}`);
     } catch (err) {
       await ctx.reply(`Oops, something went wrong. ${err.message}`);
