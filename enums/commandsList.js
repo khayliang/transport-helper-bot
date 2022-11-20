@@ -1,5 +1,9 @@
 module.exports.commandsList = [
   { command: 'start', description: 'Start' },
+  {
+    command: 'add_mileage_msg',
+    description: 'Submit mileage update',
+  },
   { command: 'view_my_mileage', description: 'My mileage' },
   {
     command: 'view_my_activities',
@@ -18,19 +22,15 @@ module.exports.commandsList = [
     description: 'WPT list',
   },
   {
+    command: 'get_vehicle',
+    description: 'Get vehicle data',
+  },
+  {
     command: 'register_vehicle',
     description: 'Register vehicle',
   },
   {
     command: 'give_feedback',
     description: 'Complain',
-  },
-  {
-    command: 'get_vehicle',
-    description: 'Get vehicle data',
-  },
-  {
-    command: 'add_mileage_msg',
-    description: 'Submit mileage update',
   },
 ];
