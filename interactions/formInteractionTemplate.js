@@ -85,6 +85,8 @@ const formInteractionTemplateUnlocked = async (ctx, formData) => {
   // The following part of the code handles the prompt to send after processing the response
   // dont send a prompt if currently having conversation
   if (ctx.session.step === 'convo') return;
+  // dont send a prompt if for some reason ur idle
+  if (ctx.session.step === 'idle') return;
 
   // this while loop checks for the next empty entry in data
   while (ctx.session.step < entries.length) {
