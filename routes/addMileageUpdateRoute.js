@@ -18,7 +18,6 @@ const addMileageUpdateForm = {
       type: 'number',
       verify: ({ data }) => `${data}`.length === 5,
       prompt: () => 'What\'s the vehicle car plate?',
-      success: ({ data }) => `Your vehicle is ${data}.`,
       error: () => 'That doesn\'t seem like a valid car plate. Please enter a valid number e.g 33716',
     },
     {
@@ -35,10 +34,6 @@ const addMileageUpdateForm = {
       verify: () => true,
       display: ({ data }) => `${new Date(data).toDateString()}`,
       prompt: () => 'What is date of the activity?\nType the date in the format DDMMYY, or press \'Today\'',
-      success: ({ data }) => {
-        const date = new Date(data);
-        return `${date.toDateString()} seems to be the date.`;
-      },
       error: () => 'Please enter a valid date. Enter in format DDMMYY or select the \'Today\' button',
     },
     {
@@ -47,7 +42,6 @@ const addMileageUpdateForm = {
       type: 'number',
       verify: () => true,
       prompt: () => 'What\'s the initial mileage of the activity?',
-      success: ({ data }) => `Initial mileage was ${data}.`,
       error: () => 'Please enter a valid mileage',
     },
     {
@@ -59,7 +53,6 @@ const addMileageUpdateForm = {
         return data >= initialMileage;
       },
       prompt: () => 'What\'s the final mileage of the activity?',
-      success: ({ data }) => `Final mileage was ${data}.`,
       error: () => 'Please enter a valid final mileage. Your final mileage might be less than your initial.',
     },
     {
@@ -73,7 +66,6 @@ const addMileageUpdateForm = {
         return false;
       },
       prompt: () => 'What is the vehicle class?',
-      success: ({ data }) => `Class ${data}? Great!`,
       error: ({ data }) => `Never heard of Class ${data} before... Please select a correct class`,
     },
     {
@@ -87,7 +79,6 @@ const addMileageUpdateForm = {
       },
       display: ({ data }) => `${activitiesEnum[data]}`,
       prompt: () => 'What type of activity was it?',
-      success: ({ data }) => `${activitiesEnum[data]}? Great!`,
       error: ({ data }) => `Never heard of ${data} before... Please select a valid activity`,
     },
   ],

@@ -23,7 +23,6 @@ const registerVehicleForm = {
         return false;
       },
       prompt: () => 'What node is your vehicle from?',
-      success: ({ data }) => `${nodesEnum[data]}? That's nice`,
       error: ({ data }) => `Never heard of ${data} before... Please select a valid node`,
     },
     {
@@ -48,10 +47,6 @@ const registerVehicleForm = {
       },
       display: ({ data }) => `${modelsEnum[data].name}`,
       prompt: () => "What's the vehicle model?",
-      success: ({ ctx, data }) => {
-        ctx.session.data.vehicle_class = modelsEnum[data].class;
-        return `${modelsEnum[data].name}? Cool beans.`;
-      },
       error: ({ data }) => `Never heard of ${data} before... Please select a valid model`,
     },
     {
@@ -60,7 +55,6 @@ const registerVehicleForm = {
       type: 'number',
       verify: () => true,
       prompt: () => 'What\'s the current mileage of the vehicle?',
-      success: ({ data }) => `${data}. Wow, that's quite a distance.`,
       error: () => 'Please enter a valid mileage',
     },
     {
@@ -69,7 +63,6 @@ const registerVehicleForm = {
       type: 'number',
       verify: ({ data, ctx }) => data <= ctx.session.data.current_mileage,
       prompt: () => 'What was the mileage of its last topup?',
-      success: ({ data }) => `${data}. It's been some time since your last topup.`,
       error: () => 'Please enter a valid mileage',
     },
     {
@@ -86,10 +79,6 @@ const registerVehicleForm = {
       verify: () => true,
       display: ({ data }) => `${new Date(data).toDateString()}`,
       prompt: () => 'What is date of the last vehicle activity? Enter in format DDMMYY',
-      success: ({ data }) => {
-        const date = new Date(data);
-        return `${date.toDateString()} seems to be the date.`;
-      },
       error: () => 'Please enter a valid date. Enter in format DDMMYY',
     },
     {
@@ -103,7 +92,6 @@ const registerVehicleForm = {
       },
       display: ({ data }) => `${activitiesEnum[data]}`,
       prompt: () => 'What type of activity was it?',
-      success: ({ data }) => `${activitiesEnum[data]}? Great!`,
       error: ({ data }) => `Never heard of ${data} before... Please select a valid activity`,
     },
   ],

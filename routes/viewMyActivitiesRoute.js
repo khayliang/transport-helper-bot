@@ -22,7 +22,6 @@ const viewMyActivitiesForm = {
         return true;
       },
       prompt: () => 'What year do you want to view?',
-      success: ({ data }) => `You want to view the year of ${data}`,
       error: () => 'That doesn\'t seem like a year. Please enter a valid year',
     },
     {
@@ -47,7 +46,6 @@ const viewMyActivitiesForm = {
       },
       display: ({ data }) => `${monthsEnum[data]}`,
       prompt: () => 'What month do you want to view?',
-      success: ({ data }) => `You want to view ${monthsEnum[data]}`,
       error: ({ data }) => `What is ${data}? I never heard of that month before... Please select a valid month`,
     },
   ],

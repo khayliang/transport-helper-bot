@@ -15,7 +15,6 @@ const getVehicleForm = {
         return false;
       },
       prompt: () => 'What vehicle do you want to view?',
-      success: ({ data }) => `You want to view vehicle ${data}`,
       error: () => 'That doesn\'t seem like a valid number. Please enter a valid vehicle number',
     },
   ],
