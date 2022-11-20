@@ -60,7 +60,7 @@ const formInteractionTemplateUnlocked = async (ctx, formData) => {
     ctx.session.step = 0;
   } else {
     const {
-      type, verify, success, error, process, key: dataKey,
+      type, verify = () => true, success, error, process, key: dataKey,
     } = entries[step];
     try {
       let msg = await getMessageData(ctx);
