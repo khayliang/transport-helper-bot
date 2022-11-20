@@ -30,7 +30,7 @@ const registerVehicleForm = {
       title: 'Car plate number',
       type: 'number',
       verify: ({ data }) => `${data}`.length === 5,
-      prompt: () => 'What\'s the vehicle car plate?',
+      prompt: () => 'What\'s the vehicle car plate? e.g 33716',
       success: ({ data }) => `${data}... Hopefully that vehicle has air conditioning`,
       error: () => 'That doesn\'t seem like a valid car plate. Please enter a valid 5 digit number e.g 33716',
     },
@@ -97,10 +97,10 @@ const registerVehicleForm = {
   ],
   onFinish: async (ctx, responses) => {
     try {
-      const {model} = responses
+      const { model } = responses;
       await registerVehicle({
         ...responses,
-        vehicleClass: modelsEnum[model].class
+        vehicleClass: modelsEnum[model].class,
       });
       await ctx.reply('Vehicle has been added!');
     } catch (err) {
