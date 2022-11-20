@@ -23,7 +23,7 @@ const parseValues = [
     parse: (val) => {
       const dateTime = val.split(' ').filter((el) => el != null);
       const time = moment(dateTime[0], 'DDMMYY/HHmm', true);
-      if (time.isValid()) return time.unix();
+      if (time.isValid()) return time.valueOf();
       throw Error('Invalid starting time format');
     },
   },
@@ -42,7 +42,7 @@ const parseValues = [
     parse: (val) => {
       const dateTime = val.split(' ').filter((el) => el != null);
       const time = moment(dateTime[0], 'DDMMYY/HHmm', true);
-      if (time.isValid()) return time.unix();
+      if (time.isValid()) return time.valueOf();
       throw Error('Invalid starting time format');
     },
   },
