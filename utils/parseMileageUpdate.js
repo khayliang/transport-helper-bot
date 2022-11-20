@@ -57,7 +57,7 @@ const parseValues = [
   {
     key: 'polAmt',
     parse: (val) => {
-      if (val === 'nil') return 0;
+      if (val === 'nil') return -1;
       if (isNaN(val)) throw Error('invalid pol amount');
       else return parseInt(val, 10);
     },
@@ -65,7 +65,7 @@ const parseValues = [
   {
     key: 'polOdo',
     parse: (val) => {
-      if (val === 'nil') return 0;
+      if (val === 'nil') return -1;
       if (isNaN(val)) throw Error('invalid pol odometer');
       else return parseInt(val, 10);
     },

@@ -21,8 +21,31 @@ const addMileageUpdateForm = {
       error: () => 'That doesn\'t seem like a valid car plate. Please enter a valid number e.g 33716',
     },
     {
+      key: 'purpose',
+      title: 'Purpose',
+      type: 'text',
+      prompt: () => 'What\'s the purpose of this movement?',
+      error: () => 'Something went very wrong',
+    },
+    {
+      key: 'ivcWorking',
+      title: 'IVC Working',
+      type: 'buttons',
+      buttons: buildButtonFunction([['Yes', true], ['No', false]]),
+      verify: ({ data }) => typeof data === 'boolean',
+      prompt: () => 'Is your IVC Working?',
+      error: () => 'Something went very wrong',
+    },
+    {
+      key: 'initialDestination',
+      title: 'Starting Destination',
+      type: 'text',
+      prompt: () => 'Where did you start driving?',
+      error: () => 'Something went very wrong',
+    },
+    {
       key: 'timestamp',
-      title: 'Time of activity',
+      title: 'Starting Time',
       type: 'buttons',
       buttons: () => (buildButtonFunction([[moment(new Date()).format('DDMMYY'), 'Today']])()),
       process: ({ data }) => {
@@ -45,15 +68,56 @@ const addMileageUpdateForm = {
       error: () => 'Please enter a valid mileage',
     },
     {
+      key: 'finalDestination',
+      title: 'End Destination',
+      type: 'text',
+      prompt: () => 'Where did you stop driving?',
+      error: () => 'Something went very wrong',
+    },
+    {
+      key: 'finalTimestamp',
+      title: 'Ending Time',
+      type: 'buttons',
+      buttons: () => (buildButtonFunction([[moment(new Date()).format('DDMMYY'), 'Today']])()),
+      process: ({ data }) => {
+        if (!isValidDate(data)) throw Error('Invalid date format');
+        const lastActivity = moment(data, 'DDMMYY').toDate();
+        if (lastActivity.getTime() > Date.now()) throw Error('date is in the future');
+        return lastActivity.getTime();
+      },
+      verify: () => true,
+      display: ({ data }) => `${new Date(data).toDateString()}`,
+      prompt: () => 'What is end date of the activity?\nType the date in the format DDMMYY, or press \'Today\'',
+      error: () => 'Please enter a valid date. Enter in format DDMMYY or select the \'Today\' button',
+    },
+    {
       key: 'finalMileage',
       title: 'Final mileage',
       type: 'number',
       verify: ({ data, ctx }) => {
-        const initialMileage = ctx.session.data.initial_mileage;
+        const { initialMileage } = ctx.session.data;
         return data >= initialMileage;
       },
       prompt: () => 'What\'s the final mileage of the activity?',
       error: () => 'Please enter a valid final mileage. Your final mileage might be less than your initial.',
+    },
+    {
+      key: 'polAmt',
+      title: 'POL Amount',
+      type: 'number',
+      verify: () => true,
+      display: ({ data }) => (data > -1 ? data : 'NIL'),
+      prompt: () => 'What\'s the topup amount?',
+      error: () => 'Please enter a valid amount',
+    },
+    {
+      key: 'polOdo',
+      title: 'POL Odometer',
+      type: 'number',
+      verify: () => true,
+      display: ({ data }) => (data > -1 ? data : 'NIL'),
+      prompt: () => 'What\'s the mileage upon topup?',
+      error: () => 'Please enter a valid mileage',
     },
     {
       key: 'vehicleClass',
@@ -81,6 +145,7 @@ const addMileageUpdateForm = {
       prompt: () => 'What type of activity was it?',
       error: ({ data }) => `Never heard of ${data} before... Please select a valid activity`,
     },
+
   ],
   onStart: async (ctx) => {
     try {

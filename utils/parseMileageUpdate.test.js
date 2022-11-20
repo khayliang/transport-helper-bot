@@ -26,8 +26,8 @@ test('function parses message text into activity object', async () => {
     finalTimestamp: 1668760500000,
     initialMileage: 38302,
     finalMileage: 38305,
-    polAmt: 0,
-    polOdo: 0,
+    polAmt: -1,
+    polOdo: -1,
   });
 });
 
@@ -57,8 +57,8 @@ test('ivc value works', async () => {
     finalTimestamp: 1668760500000,
     initialMileage: 38302,
     finalMileage: 38305,
-    polAmt: 0,
-    polOdo: 0,
+    polAmt: -1,
+    polOdo: -1,
   });
 });
 

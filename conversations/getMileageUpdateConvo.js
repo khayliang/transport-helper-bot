@@ -7,14 +7,10 @@ module.exports.getMileageUpdateConvo = async (conversation, ctx) => {
     await ctx.reply('Send me your mileage update message');
     const newCtx = await conversation.wait();
     const data = await getMessageData(newCtx);
-    const {
-      vehicleNo, initialTimestamp, initialMileage, finalMileage,
-    } = parseMileageUpdate(data);
+    const updateObj = parseMileageUpdate(data);
     newCtx.session.data = {
-      vehicleNo,
-      timestamp: initialTimestamp,
-      initialMileage,
-      finalMileage,
+      timestamp: updateObj.initialTimestamp,
+      ...updateObj,
       vehicleClass: null,
       activityType: null,
     };
